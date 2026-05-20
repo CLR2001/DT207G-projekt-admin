@@ -4,13 +4,11 @@
  * @description Manages the Single Page Application (SPA) logic.
  */
 
-interface PageModule {
-  readonly pageTemplate: HTMLTemplateElement;
-}
+import type { PageModule } from "./interfaces/page-module.interface";
+import type { Pages } from "./interfaces/pages.interface";
+import { initLogin } from "./login";
 
-interface Pages {
-  [key: string]: HTMLTemplateElement;
-};
+
 
 // 1. Imports all page files matching the pattern
 const pageFiles = import.meta.glob<PageModule>("./pages/*-page.ts", { eager: true });
@@ -19,7 +17,7 @@ if (Object.keys(pageFiles).length === 0) {
 }
 
 const pageInits: Record<string, () => void> = {
-
+  index: initLogin
 };
 
 /**
@@ -79,7 +77,7 @@ export function initPageHandler(): void {
  * @param activePage - The key of the page to be displayed.
  * @param updateHistory - Whether to push a new state to the browser history.
  */
-function renderPageContent (app: HTMLElement, pages: Pages, activePage: string, updateHistory = true) {
+export function renderPageContent (app: HTMLElement, pages: Pages, activePage: string, updateHistory = true) {
   app.replaceChildren();
   const template = pages[activePage];
   if (template) {
