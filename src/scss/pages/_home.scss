@@ -1,0 +1,78 @@
+@use '../core/' as *;
+
+.index-main {
+  height: 100%;
+  margin: 0;
+}
+
+.main-section {
+  display: grid;
+  gap: 4rem;
+}
+
+.log-in-form {
+  width: min(100%, 800px);
+  margin: auto;
+  padding-top: 0;
+  border-radius: 1rem;
+  background-color: $color-primary;
+}
+
+.log-in-form-header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 2rem;
+  border-radius: 1rem 1rem 0 0;
+  font-size: 0.8em;
+}
+
+.log-in-form-content {
+  display: grid;
+  gap: 1rem;
+  padding: 2rem $standard-padding;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 1ch;
+  }
+  .buttons-container {
+    flex-direction: row;
+    gap: 2rem;
+    margin: auto;
+    button {
+      padding: 1rem 2rem;
+      border-radius: 0.5rem;
+      text-decoration: underline;
+    }
+  }
+}
+
+input {
+  padding: 4px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.message-list {
+  list-style-type: disc;
+  color: red;
+  padding: 0 1rem 1rem 1rem;
+  &:empty {
+    display: none;
+  }
+}
+
+.spinner {
+  width: 3rem;
+  aspect-ratio: 1 / 1;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-top-color: $text-primary;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

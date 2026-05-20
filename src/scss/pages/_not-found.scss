@@ -1,0 +1,42 @@
+@use '../core' as *;
+
+.not-found-main {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+  max-width: none;
+  margin: 3rem 0;
+}
+
+.not-found-main section {
+  text-align: center;
+}
+
+.not-found-main h1 {
+  width: fit-content;
+  height: fit-content;
+  font-size: 5rem;
+}
+
+.not-found-main a {
+  margin-top: 1.5rem;
+  padding: 1rem 2rem;
+  color: $text-muted-inverse;
+  background-color: $color-accent;
+  border-radius: 1rem;
+  transition: background-color 150ms ease;
+  &:hover {
+    background-color: color-mix(in srgb, $color-accent, black 50%);
+  }
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+:root[data-theme="dark"] {
+  .not-found-main a {
+    color: $text-muted;    
+  }
+}
