@@ -1,1 +1,10 @@
 @use '../core/' as *;
+
+.admin-main {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  height: 100%;
+  margin: 0 auto;
+  padding: 2rem $standard-padding;
+}

@@ -4,24 +4,18 @@
  * @description Handles the communication with the API when logging in and out.
  */
 
-import type { Pages } from "./interfaces/pages.interface";
-import { renderPageContent } from "./page-handler";
-import { pageTemplate } from "./pages/admin-page";
 import { createDomElement, isInputEmpty } from "./global-functions";
+import { initNavigation } from "./navigation";
+import { pageTemplate as loginPageTemplate } from "./pages/index-page";
+import { adminUI } from "./pages/admin-ui";
+import { startTemplate } from "./pages/admin-templates";
 import { ApiError } from "./classes/api-error.class";
 
 const app = document.querySelector('#app') as HTMLElement;
-const pages: Pages = {
-  admin: pageTemplate
-};
 
 export function initLogin(): void {
   loggedInStatusOnLoad();
-  const loginButton = document.querySelector<HTMLButtonElement>('.log-in-button');
-  loginButton?.addEventListener('click', (event) => {
-    event.preventDefault();
-    logIn();
-  });
+  applyFormButtonListeners();
 }
 
 /**
@@ -115,11 +109,62 @@ async function logIn(): Promise<void> {
   }
 }
 
+function logOut(): void {
+  localStorage.removeItem('token');
+  app.replaceChildren();
+  app.appendChild(loginPageTemplate.content.cloneNode(true));
+  const status = document.querySelector<HTMLSpanElement>('.logged-in-status');
+  if (status) {
+    status.textContent = 'Nej';
+    status.style.color = 'red';
+  }
+}
+
 function applyLoggedInUI(): void {
   const status = document.querySelector<HTMLSpanElement>('.logged-in-status');
   if (status) {
     status.textContent = 'Ja';
     status.style.color = 'green';
   }
-  renderPageContent(app, pages, 'admin', false);
+  app.replaceChildren();
+  app.appendChild(adminUI.content.cloneNode(true));
+
+  const adminContentContainer = document.querySelector<HTMLElement>('.admin-content');
+  adminContentContainer?.replaceChildren();
+  adminContentContainer?.appendChild(startTemplate.content.cloneNode(true));
+  
+  initNavigation();
+
+  const logOutButton = document.querySelector<HTMLButtonElement>('.log-out-button');
+  logOutButton?.addEventListener('click', () => {
+    const userConfirmed = confirm('Är du säker på att du vill logga ut?');
+
+    if (userConfirmed) {
+      logOut();
+      applyFormButtonListeners();
+    }
+  });
+}
+
+function applyFormButtonListeners() {
+  const loginButton = document.querySelector<HTMLButtonElement>('.log-in-button');
+  loginButton?.addEventListener('click', (event) => {
+    event.preventDefault();
+    logIn();
+  });
+
+  const clearButton = document.querySelector<HTMLButtonElement>('.clear-button');
+  clearButton?.addEventListener('click', (event) => {
+    event.preventDefault();
+    const usernameInput = document.querySelector<HTMLInputElement>('#username');
+    const passwordInput = document.querySelector<HTMLInputElement>('#password');
+    
+    if (usernameInput && passwordInput) {
+      usernameInput.value = '';
+      passwordInput.value = '';
+    }
+
+    const messageList = document.querySelector<HTMLUListElement>('.message-list');
+    messageList?.replaceChildren();
+  });
 }

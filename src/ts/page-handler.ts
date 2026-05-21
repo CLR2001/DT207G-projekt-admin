@@ -77,7 +77,7 @@ export function initPageHandler(): void {
  * @param activePage - The key of the page to be displayed.
  * @param updateHistory - Whether to push a new state to the browser history.
  */
-export function renderPageContent (app: HTMLElement, pages: Pages, activePage: string, updateHistory = true) {
+function renderPageContent (app: HTMLElement, pages: Pages, activePage: string, updateHistory = true) {
   app.replaceChildren();
   const template = pages[activePage];
   if (template) {
@@ -97,22 +97,4 @@ export function renderPageContent (app: HTMLElement, pages: Pages, activePage: s
     const url = activePage === 'index' ? '/' : `/${activePage}`;
     window.history.pushState({ page: activePage }, "", url);
   }
-
-  updateActivePageClass(activePage);
 };
-
-/**
- * @function updateActivePageClass
- * @description Updates the 'active-page' CSS class on navigation links.
- * @param activePage - The key of the currently active page.
- */
-function updateActivePageClass(activePage: string) {
-  const navLinks = document.querySelectorAll('.nav-list a');
-  navLinks.forEach(link => {
-    if (link.getAttribute('data-page') === activePage) {
-      link.classList.add('active-page');
-    } else {
-      link.classList.remove('active-page');
-    }
-  });
-}

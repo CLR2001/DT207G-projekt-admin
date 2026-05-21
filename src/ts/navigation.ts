@@ -4,16 +4,18 @@
  * @description Handles the navigation logic, including hamburger menu functionality and accessibility.
  */
 
+import { startTemplate,  addDishTemplate,  editDishTemplate, registerTemplate, editUserTemplate } from "./pages/admin-templates";
+
 /**
  * @function initNavigation
  * @description Initializes the navigation functionality.
  */
 export function initNavigation(): void {
   // 1. Selects DOM elements
-  const nav = document.querySelector<HTMLElement>('header nav');
+  const nav = document.querySelector<HTMLElement>('.nav-list');
   const header = document.querySelector<HTMLElement>('header');
   const hamburgerButton = document.querySelector<HTMLButtonElement>('.hamburger-button');
-  const navigationLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-list a, .header-logo');
+  const navigationButtons = document.querySelectorAll<HTMLButtonElement>('.nav-list button:not(.log-out-button)');
   if (!nav || !hamburgerButton || !header) return;
 
   // 2. Initial runs on load
@@ -39,10 +41,12 @@ export function initNavigation(): void {
     hamburgerButton.innerHTML = `<svg class="icon"><use href="#icon-hamburger-${icon}"></use></svg>`;
   });
 
-  // 5. Closes menu when clicking on links
-  navigationLinks.forEach(link => {
-    link.addEventListener('click', () => closeMenu(nav, hamburgerButton));
+  // 5. Closes menu when clicking on button
+  navigationButtons.forEach(button => {
+    button.addEventListener('click', () => closeMenu(nav, hamburgerButton));
   });
+
+  applyButtonLogic();
 }
 
 /**
@@ -65,7 +69,7 @@ function closeMenu(nav: HTMLElement, hamburgerButton: HTMLButtonElement): void {
  * @param {boolean} value - True to set elements as inert, false to remove.
  */
 function toggleInert(value: boolean): void {
-  const elements = document.querySelectorAll<HTMLElement>('body > :not(header)');
+  const elements = document.querySelectorAll<HTMLElement>('body > :not(header, #app), .admin-main > :not(aside)');
 
   elements.forEach(element => {
     element.inert = value;
@@ -87,6 +91,44 @@ function updateScrollbarWidth(): void{
  */
 function headerHeight(header: HTMLElement): void {
   if (!header) return;
-
   document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`); 
+}
+
+/**
+ * @function applyButtonLogic
+ * @description Applies logic to nav-buttons.
+ */
+function applyButtonLogic(): void {
+  const adminContentContainer = document.querySelector<HTMLElement>('.admin-content');
+  
+  const adminUIButton = document.querySelector<HTMLButtonElement>('#start');
+  const addDishButton = document.querySelector<HTMLButtonElement>('#add-dish');
+  const editDishButton = document.querySelector<HTMLButtonElement>('#edit-dish');
+  const registerButton = document.querySelector<HTMLButtonElement>('#register');
+  const editUserButton = document.querySelector<HTMLButtonElement>('#edit-user');
+  
+  adminUIButton?.addEventListener('click', () => {
+    adminContentContainer?.replaceChildren();
+    adminContentContainer?.appendChild(startTemplate.content.cloneNode(true));
+  });
+
+  addDishButton?.addEventListener('click', () => {
+    adminContentContainer?.replaceChildren();
+    adminContentContainer?.appendChild(addDishTemplate.content.cloneNode(true));
+  });
+
+  editDishButton?.addEventListener('click', () => {
+    adminContentContainer?.replaceChildren();
+    adminContentContainer?.appendChild(editDishTemplate.content.cloneNode(true));
+  });
+
+  registerButton?.addEventListener('click', () => {
+    adminContentContainer?.replaceChildren();
+    adminContentContainer?.appendChild(registerTemplate.content.cloneNode(true));
+  });
+
+  editUserButton?.addEventListener('click', () => {
+    adminContentContainer?.replaceChildren();
+    adminContentContainer?.appendChild(editUserTemplate.content.cloneNode(true));
+  });
 }
