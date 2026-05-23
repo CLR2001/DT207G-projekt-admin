@@ -14,15 +14,24 @@ export function initNavigation(): void {
   // 1. Selects DOM elements
   const nav = document.querySelector<HTMLElement>('.nav-list');
   const header = document.querySelector<HTMLElement>('header');
-  const hamburgerButton = document.querySelector<HTMLButtonElement>('.hamburger-button');
   const navigationButtons = document.querySelectorAll<HTMLButtonElement>('.nav-list button:not(.log-out-button)');
-  if (!nav || !hamburgerButton || !header) return;
+  if (!nav || !header) return;
 
-  // 2. Initial runs on load
+  // 2. Creates hamburger button
+  const hamburgerButton = document.createElement('button');
+  hamburgerButton.type = 'button';
+  hamburgerButton.classList.add('hamburger-button');
+  hamburgerButton.ariaLabel = 'Open main menu';
+
+  hamburgerButton.innerHTML = `<svg class="icon"><use href="#icon-hamburger-open"></use></svg>`;
+  const headerContent = document.querySelector<HTMLDivElement>('.header-content')
+  headerContent?.append(hamburgerButton);
+
+  // 3. Initial runs on load
   updateScrollbarWidth();
   headerHeight(header);
 
-  // 3. Event listeners for window resizing and UI updates
+  // 4. Event listeners for window resizing and UI updates
   window.addEventListener('resize', () =>{
     updateScrollbarWidth();
     headerHeight(header);
@@ -31,7 +40,7 @@ export function initNavigation(): void {
     }
   });
 
-  // 4. Hamburger button functionality
+  // 5. Hamburger button functionality
   hamburgerButton.addEventListener('click', () => {
     const toOpen = nav.dataset.open !== "true";
     nav.dataset.open = toOpen.toString();
@@ -41,7 +50,7 @@ export function initNavigation(): void {
     hamburgerButton.innerHTML = `<svg class="icon"><use href="#icon-hamburger-${icon}"></use></svg>`;
   });
 
-  // 5. Closes menu when clicking on button
+  // 6. Closes menu when clicking on button
   navigationButtons.forEach(button => {
     button.addEventListener('click', () => closeMenu(nav, hamburgerButton));
   });
@@ -106,29 +115,43 @@ function applyButtonLogic(): void {
   const editDishButton = document.querySelector<HTMLButtonElement>('#edit-dish');
   const registerButton = document.querySelector<HTMLButtonElement>('#register');
   const editUserButton = document.querySelector<HTMLButtonElement>('#edit-user');
+
+  const allButtons = [adminUIButton, addDishButton, editDishButton, registerButton, editUserButton];
+
+  const setActiveButton = (clickedButton: HTMLButtonElement) => {
+    allButtons.forEach(button => {
+      button?.classList.remove('active-button');
+    });
+    if (clickedButton) clickedButton.classList.add('active-button');
+  };
   
   adminUIButton?.addEventListener('click', () => {
     adminContentContainer?.replaceChildren();
     adminContentContainer?.appendChild(startTemplate.content.cloneNode(true));
+    setActiveButton(adminUIButton);
   });
 
   addDishButton?.addEventListener('click', () => {
     adminContentContainer?.replaceChildren();
     adminContentContainer?.appendChild(addDishTemplate.content.cloneNode(true));
+    setActiveButton(addDishButton);
   });
 
   editDishButton?.addEventListener('click', () => {
     adminContentContainer?.replaceChildren();
     adminContentContainer?.appendChild(editDishTemplate.content.cloneNode(true));
+    setActiveButton(editDishButton);
   });
 
   registerButton?.addEventListener('click', () => {
     adminContentContainer?.replaceChildren();
     adminContentContainer?.appendChild(registerTemplate.content.cloneNode(true));
+    setActiveButton(registerButton);
   });
 
   editUserButton?.addEventListener('click', () => {
     adminContentContainer?.replaceChildren();
     adminContentContainer?.appendChild(editUserTemplate.content.cloneNode(true));
+    setActiveButton(editUserButton);
   });
 }

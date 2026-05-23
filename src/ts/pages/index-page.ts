@@ -2,7 +2,10 @@ const template = document.createElement('template');
 template.innerHTML = `
 <section class="main-content index-main">
   <section class="main-section">
-    <div class="log-in-form">
+    <div class="loading-screen">
+      <span class="spinner"></span>
+    </div>
+    <div class="log-in-form hidden">
       <div class="log-in-form-header">
         <h1>Logga in</h1>
       </div>

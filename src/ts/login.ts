@@ -9,7 +9,6 @@ import { initNavigation } from "./navigation";
 import { pageTemplate as loginPageTemplate } from "./pages/index-page";
 import { adminUI } from "./pages/admin-ui";
 import { startTemplate } from "./pages/admin-templates";
-import { ApiError } from "./classes/api-error.class";
 
 const app = document.querySelector('#app') as HTMLElement;
 
@@ -23,27 +22,20 @@ export function initLogin(): void {
  * @description Checks whether user has a valid token stored and automatically logs in if token is valid.
  */
 export async function loggedInStatusOnLoad(): Promise<void> {
-  const token = localStorage.getItem('token');
-  
-  if (!token) {
-    return;
-  }
-
   try {
     const response = await fetch('https://projekt.api.clr-server.com/authentication/verify', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+      method: 'GET',
+      credentials: 'include'
     });
 
     if (response.ok) {
       applyLoggedInUI();
     } else {
-      return;
+      applyLoggedOutUI();
     }
   } catch (error) {
     console.error('Kunde inte logga in:', error);
-    return;
+    applyLoggedOutUI();
   }
 }
 
@@ -86,7 +78,8 @@ async function logIn(): Promise<void> {
       body: JSON.stringify({
         'username': usernameInput,
         'password': passwordInput
-      })
+      }),
+      credentials: 'include'
     });
 
     if (!response.ok) {
@@ -94,7 +87,6 @@ async function logIn(): Promise<void> {
     }
 
     const data = await response.json();
-    localStorage.setItem('token', data.token);
     console.log(data.message);
     applyLoggedInUI();
 
@@ -109,17 +101,31 @@ async function logIn(): Promise<void> {
   }
 }
 
-function logOut(): void {
-  localStorage.removeItem('token');
-  app.replaceChildren();
-  app.appendChild(loginPageTemplate.content.cloneNode(true));
-  const status = document.querySelector<HTMLSpanElement>('.logged-in-status');
-  if (status) {
-    status.textContent = 'Nej';
-    status.style.color = 'red';
+/**
+ * @function logOut
+ * @description Function to log out.
+ */
+export async function logOut(): Promise<void> {
+  try {
+    const response = await fetch('https://projekt.api.clr-server.com/authentication/logout', {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    if (response.ok) {
+      applyLoggedOutUI();
+    } else {
+      console.error('Kunde inte logga ut från servern');
+    }
+  } catch (error) {
+    console.error('Nätverksfel vid utloggning:', error);
   }
 }
 
+/**
+ * @function applyLoggedInUI
+ * @description Function to apply admin UI when logged in.
+ */
 function applyLoggedInUI(): void {
   const status = document.querySelector<HTMLSpanElement>('.logged-in-status');
   if (status) {
@@ -146,6 +152,35 @@ function applyLoggedInUI(): void {
   });
 }
 
+/**
+ * @function applyLoggedOutUI
+ * @description Function to apply logged out UI when logged out.
+ */
+function applyLoggedOutUI(): void {
+  app.replaceChildren();
+  app.appendChild(loginPageTemplate.content.cloneNode(true));
+
+  const status = document.querySelector<HTMLSpanElement>('.logged-in-status');
+  if (status) {
+    status.textContent = 'Nej';
+    status.style.color = 'red';
+  }
+
+  const hamburgerButton = document.querySelector<HTMLButtonElement>('.hamburger-button');
+  hamburgerButton?.remove();
+
+  const loadingScreen = document.querySelector<HTMLDivElement>('.loading-screen');
+  const logInForm = document.querySelector<HTMLElement>('.log-in-form');
+  loadingScreen?.classList.add('hidden');
+  logInForm?.classList.remove('hidden');
+
+  applyFormButtonListeners();
+}
+
+/**
+ * @function applyFormButtonListeners
+ * @description Applies event listeners to buttons in log in form.
+ */
 function applyFormButtonListeners() {
   const loginButton = document.querySelector<HTMLButtonElement>('.log-in-button');
   loginButton?.addEventListener('click', (event) => {
@@ -158,7 +193,7 @@ function applyFormButtonListeners() {
     event.preventDefault();
     const usernameInput = document.querySelector<HTMLInputElement>('#username');
     const passwordInput = document.querySelector<HTMLInputElement>('#password');
-    
+
     if (usernameInput && passwordInput) {
       usernameInput.value = '';
       passwordInput.value = '';

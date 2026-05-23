@@ -4,7 +4,7 @@ template.innerHTML = `
   <aside>
     <nav class="nav-list">
       <ul>
-        <li><button type="button" id="start">Start</button></li>
+        <li><button type="button" class="active-button" id="start">Start</button></li>
         <li><button type="button" id="add-dish">Lägg till rätt</button></li>
         <li><button type="button" id="edit-dish">Redigera rätt</button></li>
         <li><button type="button" id="register">Registrera användare</button></li>
