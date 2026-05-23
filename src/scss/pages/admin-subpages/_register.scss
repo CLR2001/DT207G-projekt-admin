@@ -1,1 +1,28 @@
 @use '../../core/' as *;
+
+.register-form {
+  display: grid;
+  gap: 1rem;
+  padding: 2rem 0;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 1ch;
+  }
+  .buttons-container {
+    flex-direction: row;
+    gap: 2rem;
+    margin: auto;
+    button {
+      padding: 1rem 2rem;
+      border-radius: 0.5rem;
+      background-color: $color-secondary;
+      &:hover {
+        transform: scale(1.05);
+      }
+      &:active {
+        transform: scale(1);
+      }
+    }
+  }
+}

@@ -9,6 +9,7 @@ import { initNavigation } from "./navigation";
 import { pageTemplate as loginPageTemplate } from "./pages/index-page";
 import { adminUI } from "./pages/admin-ui";
 import { startTemplate } from "./pages/admin-templates";
+import { renderStartData } from "./render-data";
 
 const app = document.querySelector('#app') as HTMLElement;
 
@@ -140,6 +141,7 @@ function applyLoggedInUI(): void {
   adminContentContainer?.appendChild(startTemplate.content.cloneNode(true));
   
   initNavigation();
+  renderStartData();
 
   const logOutButton = document.querySelector<HTMLButtonElement>('.log-out-button');
   logOutButton?.addEventListener('click', () => {
@@ -188,16 +190,11 @@ function applyFormButtonListeners() {
     logIn();
   });
 
+  const form = document.querySelector<HTMLFormElement>('.log-in-form-content');
   const clearButton = document.querySelector<HTMLButtonElement>('.clear-button');
   clearButton?.addEventListener('click', (event) => {
     event.preventDefault();
-    const usernameInput = document.querySelector<HTMLInputElement>('#username');
-    const passwordInput = document.querySelector<HTMLInputElement>('#password');
-
-    if (usernameInput && passwordInput) {
-      usernameInput.value = '';
-      passwordInput.value = '';
-    }
+    form?.reset()
 
     const messageList = document.querySelector<HTMLUListElement>('.message-list');
     messageList?.replaceChildren();

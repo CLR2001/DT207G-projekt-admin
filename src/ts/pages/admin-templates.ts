@@ -1,7 +1,7 @@
 const template1 = document.createElement('template');
 template1.innerHTML = `
   <h1>start</h1>
-  
+
 `;
 export const startTemplate = template1;
 
@@ -19,7 +19,26 @@ export const editDishTemplate = template3;
 
 const template4 = document.createElement('template');
 template4.innerHTML = `
-  <h1>register</h1>
+  <h1>Registrera användare</h1>
+  <form class="register-form">
+    <div>
+      <label for="username" id="username-label">Användarnamn</label>
+      <input type="text" name="username" id="username">
+    </div>
+    <div>
+      <label for="e-mail">E-post</label>
+      <input type="email" name="e-mail" id="e-mail">
+    </div>
+    <div>
+      <label for="password">Lösenord</label>
+      <input type="password" name="password" id="password" autocomplete="off">
+    </div>
+    <div class="buttons-container">
+      <button class="register-button">Registrera</button>
+      <button class="clear-button">Rensa</button>
+    </div>
+    <ul class="message-list"></ul>
+  </form>
 `;
 export const registerTemplate = template4;
 

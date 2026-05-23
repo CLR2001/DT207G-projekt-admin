@@ -5,6 +5,8 @@
  */
 
 import { startTemplate,  addDishTemplate,  editDishTemplate, registerTemplate, editUserTemplate } from "./pages/admin-templates";
+import { register } from "./register";
+import { renderEditDishData, renderEditUserData, renderStartData } from "./render-data";
 
 /**
  * @function initNavigation
@@ -111,12 +113,12 @@ function applyButtonLogic(): void {
   const adminContentContainer = document.querySelector<HTMLElement>('.admin-content');
   
   const adminUIButton = document.querySelector<HTMLButtonElement>('#start');
-  const addDishButton = document.querySelector<HTMLButtonElement>('#add-dish');
-  const editDishButton = document.querySelector<HTMLButtonElement>('#edit-dish');
-  const registerButton = document.querySelector<HTMLButtonElement>('#register');
-  const editUserButton = document.querySelector<HTMLButtonElement>('#edit-user');
+  const addDishUIButton = document.querySelector<HTMLButtonElement>('#add-dish');
+  const editDishUIButton = document.querySelector<HTMLButtonElement>('#edit-dish');
+  const registerUIButton = document.querySelector<HTMLButtonElement>('#register');
+  const editUserUIButton = document.querySelector<HTMLButtonElement>('#edit-user');
 
-  const allButtons = [adminUIButton, addDishButton, editDishButton, registerButton, editUserButton];
+  const allButtons = [adminUIButton, addDishUIButton, editDishUIButton, registerUIButton, editUserUIButton];
 
   const setActiveButton = (clickedButton: HTMLButtonElement) => {
     allButtons.forEach(button => {
@@ -129,29 +131,48 @@ function applyButtonLogic(): void {
     adminContentContainer?.replaceChildren();
     adminContentContainer?.appendChild(startTemplate.content.cloneNode(true));
     setActiveButton(adminUIButton);
+    renderStartData();
   });
 
-  addDishButton?.addEventListener('click', () => {
+  addDishUIButton?.addEventListener('click', () => {
     adminContentContainer?.replaceChildren();
     adminContentContainer?.appendChild(addDishTemplate.content.cloneNode(true));
-    setActiveButton(addDishButton);
+    setActiveButton(addDishUIButton);
   });
 
-  editDishButton?.addEventListener('click', () => {
+  editDishUIButton?.addEventListener('click', () => {
     adminContentContainer?.replaceChildren();
     adminContentContainer?.appendChild(editDishTemplate.content.cloneNode(true));
-    setActiveButton(editDishButton);
+    setActiveButton(editDishUIButton);
+    renderEditDishData();
   });
 
-  registerButton?.addEventListener('click', () => {
+  registerUIButton?.addEventListener('click', () => {
     adminContentContainer?.replaceChildren();
     adminContentContainer?.appendChild(registerTemplate.content.cloneNode(true));
-    setActiveButton(registerButton);
+    setActiveButton(registerUIButton);
+
+    const registerButton = document.querySelector<HTMLButtonElement>('.register-button');
+    registerButton?.addEventListener('click', (event) => {
+      event.preventDefault();
+      register();
+    });
+
+    const form = document.querySelector<HTMLFormElement>('.register-form');
+    const clearButton = document.querySelector<HTMLButtonElement>('.clear-button');
+    clearButton?.addEventListener('click', (event) => {
+      event.preventDefault();
+      form?.reset()
+
+      const messageList = document.querySelector<HTMLUListElement>('.message-list');
+      messageList?.replaceChildren();
+    });
   });
 
-  editUserButton?.addEventListener('click', () => {
+  editUserUIButton?.addEventListener('click', () => {
     adminContentContainer?.replaceChildren();
     adminContentContainer?.appendChild(editUserTemplate.content.cloneNode(true));
-    setActiveButton(editUserButton);
+    setActiveButton(editUserUIButton);
+    renderEditUserData();
   });
 }
