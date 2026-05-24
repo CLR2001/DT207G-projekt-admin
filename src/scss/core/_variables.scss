@@ -27,7 +27,7 @@ $text-muted-inverse: var(--text-muted-inverse);
 }
 
 @mixin dark-theme() {
-  --color-primary: rgb(22, 22, 26);
+  --color-primary: 	black;
   --color-secondary: black;
   --color-accent: blue;
   --color-background: #121212;

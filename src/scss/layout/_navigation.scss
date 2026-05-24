@@ -37,7 +37,7 @@ aside:has([data-open="true"]) {
       inset: unset;
       display: flex;
       padding: 2rem;
-      border: 2px solid $text-primary;
+      border: 2px solid $text-muted;
       border-radius: 1rem;
 
       button {

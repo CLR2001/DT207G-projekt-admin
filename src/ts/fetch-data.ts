@@ -20,6 +20,24 @@ export async function fetchDishesData(): Promise<Dish[]> {
   }
 }
 
+export async function fetchCurrentDishesData(): Promise<Dish[]> {
+  try {
+    const response = await fetch('https://projekt.api.clr-server.com/dishes/current-week', {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    await verifyResponse(response);
+
+    const dishes: Dish[] = await response.json();  
+    return dishes;
+    
+  } catch (error: any) {
+    console.log(error.message);
+    return [];
+  }
+}
+
 export async function fetchUsersData(): Promise<User[]> {
   try {
     const response = await fetch('https://projekt.api.clr-server.com/users', {

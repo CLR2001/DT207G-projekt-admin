@@ -4,7 +4,8 @@ export async function addDish() {
   const nameInput = document.querySelector<HTMLInputElement>('#name');
   const descriptionInput = document.querySelector<HTMLInputElement>('#description');
   const priceInput = document.querySelector<HTMLInputElement>('#price');
-  const weekInput = document.querySelector<HTMLInputElement>('#week');
+  const weekInput = document.querySelector<HTMLInputElement>('#specific-weeks');
+  const allWeeksCheckbox = document.querySelector<HTMLInputElement>('#all-weeks');
   const categoryInput = document.querySelector<HTMLInputElement>('#category');
   const messageList = document.querySelector<HTMLUListElement>('.message-list');
 
@@ -13,17 +14,14 @@ export async function addDish() {
     isInputEmpty(nameInput?.value as string, 'Namn får inte vara tomt', messageArray);
     isInputEmpty(descriptionInput?.value as string, 'Beskrivning får inte vara tomt', messageArray);
     isInputEmpty(priceInput?.value as string, 'Pris får inte vara tomt', messageArray);
-    isInputEmpty(weekInput?.value as string, 'Vecka får inte vara tomt', messageArray);
+    if (!allWeeksCheckbox?.checked) {
+      isInputEmpty(weekInput?.value as string, 'Vecka får inte vara tomt', messageArray);
+    }
     isInputEmpty(categoryInput?.value as string, 'Kategori får inte vara tomt', messageArray);
 
     const isPriceNumber = !Number.isNaN(Number(priceInput?.value));
     if (priceInput?.value.trim() !== '' && !isPriceNumber) {
       messageArray.push('Pris måste vara ett nummer');
-    } 
-    
-    const isWeekNumber = !Number.isNaN(Number(weekInput?.value));
-    if (weekInput?.value.trim() !== '' && !isWeekNumber) {
-      messageArray.push('Vecka måste vara ett nummer');
     } 
 
     if (messageArray.length > 0) {
@@ -36,6 +34,8 @@ export async function addDish() {
       return;
     }
 
+    
+
     try {
       const response = await fetch('https://projekt.api.clr-server.com/dishes/save', {
         method: 'POST',
@@ -46,7 +46,7 @@ export async function addDish() {
           'name': nameInput?.value.trim(),
           'description': descriptionInput?.value.trim(),
           'price': priceInput?.valueAsNumber,
-          'week': weekInput?.valueAsNumber,
+          'week': getWeeksFromInput(weekInput?.value as string),
           'category': categoryInput?.value.trim()
         }),
         credentials: 'include'
@@ -77,4 +77,20 @@ export async function addDish() {
       const spinner = document.querySelector('.spinner');
       spinner?.remove();
     }
+}
+
+function getWeeksFromInput(input: string): number[] {
+  const allWeeksCheckbox = document.querySelector<HTMLInputElement>('#all-weeks');
+  if (allWeeksCheckbox?.checked) {
+    return [];
+  }
+  
+  const weeksArray: number[] = input
+    .split(',')
+    .map(week => Number(week.trim()))
+    .filter(week => !Number.isNaN(week) && week >= 1 && week <= 52);
+
+    console.log(weeksArray);
+    
+  return weeksArray;
 }

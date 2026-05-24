@@ -1,12 +1,9 @@
-<h1>Start</h1>
-<div class="change-week-container">
-  <label for="week">Välj ny vecka:</label>
-  <input type="number" min="1" max="52" name="week" id="week">
-  <button type="button" class="update-week-button">Spara ändring</button>
-</div>
-<section class="start-main">
-  <h2>Nuvarande meny (vecka: <span id="current-week"></span>)</h2>
-  <div class="menu-container">
-
+<div class="week-input">
+  <label for="all-weeks">
+    <input type="checkbox" name="all-weeks" id="all-weeks"> Alltid på menyn (alla veckor)
+  </label>
+  <div class="specific-weeks">
+    <label for="week">Välj specifika veckor (separera med kommatecken):</label>
+    <input type="text" name="week" id="week" placeholder="Ex: 10, 11, 12">
   </div>
-</section>
+</div>

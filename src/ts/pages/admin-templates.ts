@@ -2,13 +2,26 @@ const template1 = document.createElement('template');
 template1.innerHTML = `
  <h1>Start</h1>
   <div class="change-week-container">
-    <label for="week">Välj ny vecka:</label>
+    <label for="week">Välj ny vecka att visa på webbplatsen:</label>
     <input type="number" min="1" max="52" name="week" id="week">
     <button type="button" class="update-week-button">Spara ändring</button>
   </div>
   <section class="start-main">
     <h2>Nuvarande meny (vecka: <span id="current-week"></span>)</h2>
-    <div class="menu-container"></div>
+    <div class="menu-container">
+      <div class="appetizers">
+        <h3>Förrätter</h3>
+      </div>
+      <div class="mains">
+        <h3>Huvudrätter</h3>
+      </div>
+      <div class="desserts">
+        <h3>Desserter</h3>
+      </div>
+      <div class="drinks">
+        <h3>Dryck</h3>
+      </div>
+    </div>
   </section>
 `;
 export const startTemplate = template1;
@@ -30,16 +43,22 @@ template2.innerHTML = `
       <input type="number" value="0" name="price" id="price" autocomplete="off">
     </div>
     <div class="week-input">
-      <label for="week">Vecka:</label>
-      <input type="number" min="1" max="52" value="1" name="week" id="week">
+      <div class="specific-weeks">
+        <label for="specific-weeks">Välj specifika veckor mellan 1 och 52 (separera med kommatecken):</label>
+        <input type="text" name="specific-weeks" id="specific-weeks" placeholder="Ex: 10, 11, 12">
+      </div>
+      <p class="or-text">eller</p>
+      <label for="all-weeks">
+        <input type="checkbox" name="all-weeks" id="all-weeks"> Alltid på menyn (alla veckor)
+      </label>
     </div>
     <div>
       <label for="category">Kategori:</label>
       <select name="category" id="category">
-        <option value="Förrätt">Förrätt</option>
-        <option value="Huvudrätt">Huvudrätt</option>
-        <option value="Dessert">Dessert</option>
-        <option value="Dryck">Dryck</option>
+        <option value="appetizer">Förrätt</option>
+        <option value="main">Huvudrätt</option>
+        <option value="dessert">Dessert</option>
+        <option value="drink">Dryck</option>
       </select>
     </div>
     <div class="buttons-container">

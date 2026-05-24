@@ -150,7 +150,10 @@ function applyButtonLogic(): void {
     const clearButton = document.querySelector<HTMLButtonElement>('.clear-button');
     clearButton?.addEventListener('click', (event) => {
       event.preventDefault();
-      form?.reset()
+      const userconfirm = confirm('Är du säker att du vill rensa?')
+      if (userconfirm) {
+        form?.reset();
+      }
 
       const messageList = document.querySelector<HTMLUListElement>('.message-list');
       messageList?.replaceChildren();
@@ -179,7 +182,10 @@ function applyButtonLogic(): void {
     const clearButton = document.querySelector<HTMLButtonElement>('.clear-button');
     clearButton?.addEventListener('click', (event) => {
       event.preventDefault();
-      form?.reset()
+      const userconfirm = confirm('Är du säker att du vill rensa?')
+      if (userconfirm) {
+        form?.reset();
+      }
 
       const messageList = document.querySelector<HTMLUListElement>('.message-list');
       messageList?.replaceChildren();

@@ -30,21 +30,37 @@
   }
 }
 
+.add-dish-form .week-input {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem 0;
+  &:has(#all-weeks:checked) {
+    margin: 1rem 0;
+  }
+}
+
+label[for="all-weeks"] {
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+#all-weeks {
+  margin: 0 1ch;
+  transform: scale(1.5);
+}
+
+.week-input:has(#all-weeks:checked) p,
+.week-input:has(#all-weeks:checked) .specific-weeks {
+  display: none;
+}
+
 select {
   width: fit-content;
 }
 
 textarea {
   resize: vertical;
-}
-
-#week {
-  width: 5ch;
-  text-align: center;
-}
-
-#price {
-  width: 10ch;
 }
 
 #price::-webkit-inner-spin-button,

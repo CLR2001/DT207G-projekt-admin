@@ -1,0 +1,33 @@
+@use '../../core/' as *;
+.change-week-container {
+  display: flex;
+  gap: 1ch;
+  align-items: center;
+  margin-top: 0.5rem;
+  #week {
+    width: 4ch;
+    padding: 0;
+    text-align: center;
+  }
+  button {
+    padding: 1ch;
+    border: 1px solid $text-muted;
+    border-radius: 1ch;
+    background-color: $color-secondary;
+  }
+}
+
+.start-main {
+  margin-top: 2rem;
+  h2 {
+    text-align: center;
+  }
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 3rem;
+  text-align: center;
+}
