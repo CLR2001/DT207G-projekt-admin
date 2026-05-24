@@ -1,5 +1,15 @@
 @use '../core/' as *;
 
+.loading-screen {
+  display: grid;
+  place-items: center;
+  .spinner{
+    display: inline-block;
+    width: 5em;
+    border-width: 3px;
+  }
+}
+
 .index-main {
   height: 100%;
   margin: 0;
@@ -15,7 +25,7 @@
   margin: auto;
   padding-top: 0;
   border-radius: 1rem;
-  background-color: $color-primary;
+  background-color: $color-secondary;
 }
 
 .log-in-form-header {
@@ -48,8 +58,9 @@
   }
 }
 
-input {
+input, select, textarea {
   padding: 4px;
+  border: 1px solid $text-primary;
   border-radius: 5px;
   background-color: white;
 }

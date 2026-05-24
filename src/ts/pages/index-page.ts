@@ -2,17 +2,20 @@ const template = document.createElement('template');
 template.innerHTML = `
 <section class="main-content index-main">
   <section class="main-section">
-    <div class="log-in-form">
+    <div class="loading-screen">
+      <span class="spinner"></span>
+    </div>
+    <div class="log-in-form hidden">
       <div class="log-in-form-header">
         <h1>Logga in</h1>
       </div>
       <form class="log-in-form-content">
         <div>
-          <label for="username" id="username-label">Användarnamn eller e-post</label>
+          <label for="username" id="username-label">Användarnamn eller e-post:</label>
           <input type="text" name="username" id="username">
         </div>
         <div>
-          <label for="password">Lösenord</label>
+          <label for="password">Lösenord:</label>
           <input type="password" name="password" id="password" autocomplete="off">
         </div>
         <div class="buttons-container">

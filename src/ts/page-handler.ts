@@ -4,13 +4,11 @@
  * @description Manages the Single Page Application (SPA) logic.
  */
 
-interface PageModule {
-  readonly pageTemplate: HTMLTemplateElement;
-}
+import type { PageModule } from "./interfaces/page-module.interface";
+import type { Pages } from "./interfaces/pages.interface";
+import { initLogin } from "./login";
 
-interface Pages {
-  [key: string]: HTMLTemplateElement;
-};
+
 
 // 1. Imports all page files matching the pattern
 const pageFiles = import.meta.glob<PageModule>("./pages/*-page.ts", { eager: true });
@@ -19,7 +17,7 @@ if (Object.keys(pageFiles).length === 0) {
 }
 
 const pageInits: Record<string, () => void> = {
-
+  index: initLogin
 };
 
 /**
@@ -99,22 +97,4 @@ function renderPageContent (app: HTMLElement, pages: Pages, activePage: string, 
     const url = activePage === 'index' ? '/' : `/${activePage}`;
     window.history.pushState({ page: activePage }, "", url);
   }
-
-  updateActivePageClass(activePage);
 };
-
-/**
- * @function updateActivePageClass
- * @description Updates the 'active-page' CSS class on navigation links.
- * @param activePage - The key of the currently active page.
- */
-function updateActivePageClass(activePage: string) {
-  const navLinks = document.querySelectorAll('.nav-list a');
-  navLinks.forEach(link => {
-    if (link.getAttribute('data-page') === activePage) {
-      link.classList.add('active-page');
-    } else {
-      link.classList.remove('active-page');
-    }
-  });
-}
