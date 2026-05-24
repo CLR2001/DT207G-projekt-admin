@@ -11,11 +11,11 @@ template.innerHTML = `
       </div>
       <form class="log-in-form-content">
         <div>
-          <label for="username" id="username-label">Användarnamn eller e-post</label>
+          <label for="username" id="username-label">Användarnamn eller e-post:</label>
           <input type="text" name="username" id="username">
         </div>
         <div>
-          <label for="password">Lösenord</label>
+          <label for="password">Lösenord:</label>
           <input type="password" name="password" id="password" autocomplete="off">
         </div>
         <div class="buttons-container">

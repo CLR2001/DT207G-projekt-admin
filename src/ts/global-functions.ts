@@ -30,13 +30,13 @@ export function isInputEmpty(input: string, message: string, array: Array<string
 }
 
 /**
- * @function verifyToken
+ * @function verifyResponse
  * @description Checks a response to see if it was ok.
  * @param response Response to check.
  */
-export async function verifyToken(response: Response) {
+export async function verifyResponse(response: Response): Promise<void> {
   if (!response.ok) {
     const errorData: ApiError = await response.json();
-    throw new Error(errorData.message);
+    throw new Error(errorData.message, { cause: { ...errorData, status: response.status } });
   }
 }

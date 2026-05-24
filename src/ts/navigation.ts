@@ -5,6 +5,7 @@
  */
 
 import { startTemplate,  addDishTemplate,  editDishTemplate, registerTemplate, editUserTemplate } from "./pages/admin-templates";
+import { addDish } from "./add-dish";
 import { register } from "./register";
 import { renderEditDishData, renderEditUserData, renderStartData } from "./render-data";
 
@@ -138,6 +139,22 @@ function applyButtonLogic(): void {
     adminContentContainer?.replaceChildren();
     adminContentContainer?.appendChild(addDishTemplate.content.cloneNode(true));
     setActiveButton(addDishUIButton);
+    
+    const addDishButton = document.querySelector<HTMLButtonElement>('.add-dish-button');
+    addDishButton?.addEventListener('click', (event) => {
+      event.preventDefault();
+      addDish();
+    });
+
+    const form = document.querySelector<HTMLFormElement>('.add-dish-form');
+    const clearButton = document.querySelector<HTMLButtonElement>('.clear-button');
+    clearButton?.addEventListener('click', (event) => {
+      event.preventDefault();
+      form?.reset()
+
+      const messageList = document.querySelector<HTMLUListElement>('.message-list');
+      messageList?.replaceChildren();
+    });
   });
 
   editDishUIButton?.addEventListener('click', () => {
@@ -157,7 +174,7 @@ function applyButtonLogic(): void {
       event.preventDefault();
       register();
     });
-
+    
     const form = document.querySelector<HTMLFormElement>('.register-form');
     const clearButton = document.querySelector<HTMLButtonElement>('.clear-button');
     clearButton?.addEventListener('click', (event) => {

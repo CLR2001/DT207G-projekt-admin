@@ -1,6 +1,6 @@
 import type { Dish } from "./interfaces/dish.interface";
 import type { User } from "./interfaces/user.interface";
-import { verifyToken } from "./global-functions";
+import { verifyResponse } from "./global-functions";
 
 export async function fetchDishesData(): Promise<Dish[]> {
   try {
@@ -9,7 +9,7 @@ export async function fetchDishesData(): Promise<Dish[]> {
       credentials: 'include'
     });
 
-    await verifyToken(response);
+    await verifyResponse(response);
 
     const dishes: Dish[] = await response.json();  
     return dishes;
@@ -27,7 +27,7 @@ export async function fetchUsersData(): Promise<User[]> {
       credentials: 'include'
     });
 
-    await verifyToken(response);
+    await verifyResponse(response);
 
     const users: User[] = await response.json();  
     return users;
@@ -35,5 +35,23 @@ export async function fetchUsersData(): Promise<User[]> {
   } catch (error: any) {
     console.log(error.message);
     return [];
+  }
+}
+
+export async function fetchWeekData(): Promise<number> {
+  try {
+    const response = await fetch('https://projekt.api.clr-server.com/settings/current-week', {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    await verifyResponse(response);
+
+    const week = await response.json();  
+    return week.currentWeek;
+    
+  } catch (error: any) {
+    console.log(error.message);
+    return 1;
   }
 }

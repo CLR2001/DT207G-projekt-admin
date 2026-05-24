@@ -1,4 +1,10 @@
-import { createDomElement, isInputEmpty, verifyToken } from "./global-functions";
+/**
+ * @file Register
+ * @module Register
+ * @description Handles the communication with the API when registering an ccount.
+ */
+
+import { createDomElement, isInputEmpty, verifyResponse } from "./global-functions";
 
 /**
  * @function register
@@ -39,7 +45,7 @@ export async function register(): Promise<void> {
   spinner.classList.add('spinner');
   container?.append(spinner);
   try {
-    const response = await fetch('https://projekt.api.clr-server.com/authentication/register', {
+    const response = await fetch('https://projekt.api.clr-server.com/users/register', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
@@ -52,7 +58,7 @@ export async function register(): Promise<void> {
       credentials: 'include'
     });
 
-    await verifyToken(response);
+    await verifyResponse(response);
 
     /* ------------------------- Successful registration ------------------------ */
     const form = document.querySelector<HTMLFormElement>('.register-form');
@@ -63,12 +69,15 @@ export async function register(): Promise<void> {
     messageList?.append(message);
 
   } catch (error: any) {
-    console.error("Status:", error.status);
-    console.error("Error:", error.error);
-    console.error("Message:", error.message);
+    if (error.cause) {
+      console.error("Error:", error.cause.error);
+      console.error("Message:", error.cause.message);
+      console.log('--- DETAILS ---');
+      console.table(error.cause.details);
+    }
 
     messageList?.replaceChildren();
-    const message = createDomElement('li', error.message);
+    const message = createDomElement('li', error.cause?.message || 'Ett oväntat fel inträffade' );
     messageList?.append(message);
   } finally {
     const spinner = document.querySelector('.spinner');

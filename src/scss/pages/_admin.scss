@@ -2,7 +2,7 @@
 
 .admin-main {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
   height: 100%;
   margin: 0 auto;
@@ -11,4 +11,10 @@
 
 .admin-content {
   padding: 2rem $standard-padding;
+}
+
+@media (min-width: 992px) {
+  .admin-main {
+    grid-template-columns: auto 1fr;
+  }
 }

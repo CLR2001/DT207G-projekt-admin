@@ -56,7 +56,6 @@ async function logIn(): Promise<void> {
   isInputEmpty(passwordInput as string, 'Lösenord får inte vara tomt', messageArray);
 
   if (messageArray.length > 0) {
-    const messageList = document.querySelector<HTMLUListElement>('.message-list');
     messageList?.replaceChildren();
     messageArray.forEach(message => {
       const li = document.createElement('li');

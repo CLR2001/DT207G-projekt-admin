@@ -58,8 +58,9 @@
   }
 }
 
-input {
+input, select, textarea {
   padding: 4px;
+  border: 1px solid $text-primary;
   border-radius: 5px;
   background-color: white;
 }
