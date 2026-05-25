@@ -1,5 +1,6 @@
+import { getWeeksFromInput } from "./add-dish";
 import { fetchDishesData, fetchCurrentDishesData, fetchUsersData, fetchWeekData } from "./fetch-data";
-import { closeModal, createDomElement, openModal, verifyResponse } from "./global-functions";
+import { closeModal, createDomElement, isInputEmpty, openModal, verifyResponse } from "./global-functions";
 import type { Dish } from "./interfaces/dish.interface";
 import { editDishModalTemplate } from "./pages/modal-templates";
 
@@ -136,7 +137,33 @@ function createEditButton(dish: Dish): HTMLButtonElement {
     const modal = document.querySelector<HTMLElement>('.modal');
     modal?.replaceChildren();
     modal?.appendChild(editDishModalTemplate.content.cloneNode(true));
+
+    // Fill inputs with current data
+    const nameInput = document.querySelector<HTMLInputElement>('#name');
+    if (nameInput) nameInput.value = dish.name;
+
+    const descriptionInput = document.querySelector<HTMLInputElement>('#description');
+    if (descriptionInput) descriptionInput.value = dish.description;
+
+    const priceInput = document.querySelector<HTMLInputElement>('#price');
+    if (priceInput) priceInput.value = dish.price.toString();
     
+    const allWeeksCheckbox = document.querySelector<HTMLInputElement>('#all-weeks');
+    if(allWeeksCheckbox) {
+      if (dish.week.length === 0) {
+        allWeeksCheckbox.checked = true;
+      } else {
+        const weekInput = document.querySelector<HTMLInputElement>('#specific-weeks');
+        if (!weekInput) return;
+        const weekString = dish.week.join(', ');
+        weekInput.value = weekString;
+      }
+    }
+
+    const categoryInput = document.querySelector<HTMLInputElement>('#category');
+    if (categoryInput) categoryInput.value = dish.category;
+    
+    // Creating event listeners for buttons
     const exitButton = document.querySelector<HTMLButtonElement>('.exit-edit-button');
     exitButton?.addEventListener('click', (event) => {
       event.preventDefault();
@@ -144,12 +171,11 @@ function createEditButton(dish: Dish): HTMLButtonElement {
       });
       
       const submitButton = document.querySelector<HTMLButtonElement>('.submit-edit-button');
-      submitButton?.addEventListener('click', () => {
+      submitButton?.addEventListener('click', (event) => {
+        event.preventDefault();
         editDish(dish);
-        closeModal()
       });
       
-      /* ------------------------------- Open modal ------------------------------- */
       openModal();
     });
     
@@ -168,9 +194,41 @@ function createEditButton(dish: Dish): HTMLButtonElement {
 }
 
 async function editDish(dish: Dish): Promise<void> {
+  const nameInput = document.querySelector<HTMLInputElement>('#name');
+  const descriptionInput = document.querySelector<HTMLInputElement>('#description');
+  const priceInput = document.querySelector<HTMLInputElement>('#price');
+  const weekInput = document.querySelector<HTMLInputElement>('#specific-weeks');
+  const allWeeksCheckbox = document.querySelector<HTMLInputElement>('#all-weeks');
+  const categoryInput = document.querySelector<HTMLInputElement>('#category');
+  const messageList = document.querySelector<HTMLUListElement>('.message-list');
+
+  // Input validation
+  const messageArray: Array<string> = [];
+  isInputEmpty(nameInput?.value as string, 'Namn får inte vara tomt', messageArray);
+  isInputEmpty(descriptionInput?.value as string, 'Beskrivning får inte vara tomt', messageArray);
+  isInputEmpty(priceInput?.value as string, 'Pris får inte vara tomt', messageArray);
+  if (!allWeeksCheckbox?.checked) {
+    isInputEmpty(weekInput?.value as string, 'Vecka får inte vara tomt', messageArray);
+  }
+  isInputEmpty(categoryInput?.value as string, 'Kategori får inte vara tomt', messageArray);
+
+  const isPriceNumber = !Number.isNaN(Number(priceInput?.value));
+  if (priceInput?.value.trim() !== '' && !isPriceNumber) {
+    messageArray.push('Pris måste vara ett nummer');
+  } 
+
+  if (messageArray.length > 0) {
+    messageList?.replaceChildren();
+    messageArray.forEach(message => {
+      const li = document.createElement('li');
+      li.textContent = message;
+      messageList?.append(li);
+    });
+    return;
+  }
+      
   try {
-    
-    const userConfirm = confirm(`Är du säker att du vill uppdatera rätten: ${dish.name}`);
+    const userConfirm = confirm(`Är du säker på att du vill uppdatera rätten: ${dish.name}`);
 
     if (userConfirm) {
       const response = await fetch(`https://projekt.api.clr-server.com/dishes/${dish._id}`, {
@@ -178,13 +236,20 @@ async function editDish(dish: Dish): Promise<void> {
         headers: {
           'Content-type': 'application/json'
         },
-        body: JSON.stringify(),
+        body: JSON.stringify({
+          'name': nameInput?.value.trim(),
+          'description': descriptionInput?.value.trim(),
+          'price': priceInput?.valueAsNumber,
+          'week': getWeeksFromInput(weekInput?.value as string),
+          'category': categoryInput?.value.trim()
+      }),
         credentials: 'include'
       });
 
       await verifyResponse(response);
 
       alert('Rätten har uppdaterats');
+      closeModal();
       renderEditDishData();
     }
   } catch (error: any) {

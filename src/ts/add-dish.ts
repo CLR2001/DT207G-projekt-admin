@@ -79,7 +79,7 @@ export async function addDish() {
     }
 }
 
-function getWeeksFromInput(input: string): number[] {
+export function getWeeksFromInput(input: string): number[] {
   const allWeeksCheckbox = document.querySelector<HTMLInputElement>('#all-weeks');
   if (allWeeksCheckbox?.checked) {
     return [];
