@@ -1,6 +1,6 @@
 @use '../../core/' as *;
 
-.add-dish-form {
+.add-dish-form, .edit-dish-form {
   display: grid;
   gap: 1rem;
   padding: 2rem 0;
@@ -30,7 +30,8 @@
   }
 }
 
-.add-dish-form .week-input {
+.add-dish-form .week-input,
+.edit-dish-form .week-input {
   display: flex;
   flex-direction: column;
   gap: 2rem;

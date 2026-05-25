@@ -1,1 +1,24 @@
 @use '../../core/' as *;
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: $standard-padding;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.edit-dish-form {
+  width: 100%;
+  max-width: 800px;
+  padding: 4rem;
+  border-radius: 2rem;
+  background-color: $color-secondary;
+  .buttons-container {
+    margin-top: 2rem;
+    button {
+      background-color: $color-primary;
+    }
+  }
+}

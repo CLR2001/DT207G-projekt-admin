@@ -3,15 +3,13 @@
   display: flex;
   gap: 1ch;
   align-items: center;
-  margin-top: 0.5rem;
   #week {
     width: 4ch;
     padding: 0;
     text-align: center;
   }
   button {
-    padding: 1ch;
-    border: 1px solid $text-muted;
+    padding: 1ch 1.5ch;
     border-radius: 1ch;
     background-color: $color-secondary;
   }
@@ -19,8 +17,12 @@
 
 .start-main {
   margin-top: 2rem;
+}
+
+.menu-header {
+  max-width: $p-width;
   h2 {
-    text-align: center;
+    font-size: 1.8em;
   }
 }
 
@@ -28,6 +30,23 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-top: 3rem;
-  text-align: center;
+  margin-top: 2rem;
+  h3 {
+    margin-bottom: 1rem;
+    font-size: 1.6em;
+    text-decoration: under;
+  }
+  
+}
+
+.menu-container > div {
+  position: relative;
+  max-width: $p-width;
+}
+
+.dish-container {
+  display: grid;
+  gap: 0.5ch;
+  margin-bottom: 2rem;
+  color: $text-muted;
 }

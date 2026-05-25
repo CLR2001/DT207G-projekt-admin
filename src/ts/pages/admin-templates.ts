@@ -7,20 +7,15 @@ template1.innerHTML = `
     <button type="button" class="update-week-button">Spara ändring</button>
   </div>
   <section class="start-main">
-    <h2>Nuvarande meny (vecka: <span id="current-week"></span>)</h2>
+    <div class="menu-header">
+      <h2>Nuvarande meny</h2>
+      <p>Vecka: <span id="current-week"></span></p>
+    </div>
     <div class="menu-container">
-      <div class="appetizers">
-        <h3>Förrätter</h3>
-      </div>
-      <div class="mains">
-        <h3>Huvudrätter</h3>
-      </div>
-      <div class="desserts">
-        <h3>Desserter</h3>
-      </div>
-      <div class="drinks">
-        <h3>Dryck</h3>
-      </div>
+      <div class="appetizers"></div>
+      <div class="mains"></div>
+      <div class="desserts"></div>
+      <div class="drinks"></div>
     </div>
   </section>
 `;
@@ -40,12 +35,12 @@ template2.innerHTML = `
     </div>
     <div>
       <label for="price">Pris:</label>
-      <input type="number" value="0" name="price" id="price" autocomplete="off">
+      <input type="number" name="price" id="price" placeholder="0" autocomplete="off">
     </div>
     <div class="week-input">
       <div class="specific-weeks">
         <label for="specific-weeks">Välj specifika veckor mellan 1 och 52 (separera med kommatecken):</label>
-        <input type="text" name="specific-weeks" id="specific-weeks" placeholder="Ex: 10, 11, 12">
+        <input type="text" name="specific-weeks" id="specific-weeks" placeholder="Ex: 10, 11, 12" autocomplete="off">
       </div>
       <p class="or-text">eller</p>
       <label for="all-weeks">
@@ -72,7 +67,13 @@ export const addDishTemplate = template2;
 
 const template3 = document.createElement('template');
 template3.innerHTML = `
-  <h1>editdish</h1>
+  <h1>Redigera rätt</h1>
+  <div class="menu-container">
+    <div class="appetizers"></div>
+    <div class="mains"></div>
+    <div class="desserts"></div>
+    <div class="drinks"></div>
+  </div>
 `;
 export const editDishTemplate = template3;
 

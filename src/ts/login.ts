@@ -127,11 +127,6 @@ export async function logOut(): Promise<void> {
  * @description Function to apply admin UI when logged in.
  */
 function applyLoggedInUI(): void {
-  const status = document.querySelector<HTMLSpanElement>('.logged-in-status');
-  if (status) {
-    status.textContent = 'Ja';
-    status.style.color = 'green';
-  }
   app.replaceChildren();
   app.appendChild(adminUI.content.cloneNode(true));
 
@@ -160,12 +155,6 @@ function applyLoggedInUI(): void {
 function applyLoggedOutUI(): void {
   app.replaceChildren();
   app.appendChild(loginPageTemplate.content.cloneNode(true));
-
-  const status = document.querySelector<HTMLSpanElement>('.logged-in-status');
-  if (status) {
-    status.textContent = 'Nej';
-    status.style.color = 'red';
-  }
 
   const hamburgerButton = document.querySelector<HTMLButtonElement>('.hamburger-button');
   hamburgerButton?.remove();

@@ -40,3 +40,46 @@ export async function verifyResponse(response: Response): Promise<void> {
     throw new Error(errorData.message, { cause: { ...errorData, status: response.status } });
   }
 }
+
+/**
+ * @function openModal
+ * @description Opens modal.
+ */
+export function openModal(){
+  const body = document.querySelector<HTMLBodyElement>('body');
+  const header = document.querySelector<HTMLElement>('header');
+  const main = document.querySelector<HTMLElement>('main');
+  const footer = document.querySelector<HTMLElement>('footer');
+  const modal = document.querySelector<HTMLElement>('.modal');
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  if (!body || !header || !main || !footer || !modal ) {
+    return;
+  }
+  modal.classList.remove('hidden');
+  body.classList.add('no-scroll');
+  body.style.paddingRight = `${scrollbarWidth}px`;
+  header.inert = true;
+  main.inert = true;
+  footer.inert = true;
+}
+
+/**
+ * @function closeModal
+ * @description Closes modal.
+ */
+export function closeModal(){
+  const body = document.querySelector<HTMLBodyElement>('body');
+  const header = document.querySelector<HTMLElement>('header');
+  const main = document.querySelector<HTMLElement>('main');
+  const footer = document.querySelector<HTMLElement>('footer');
+  const modal = document.querySelector<HTMLElement>('.modal');
+  if (!body || !header || !main || !footer || !modal ) {
+    return;
+  }
+  modal.classList.add('hidden');
+  body.classList.remove("no-scroll");
+  body.style.paddingRight = "0";
+  header.inert = false;
+  main.inert = false;
+  footer.inert = false;
+}
