@@ -1,4 +1,8 @@
 @use '../../core/' as *;
+.start-main {
+  margin: 1.5rem 0;
+}
+
 .change-week-container {
   display: flex;
   gap: 1ch;
@@ -21,10 +25,6 @@
       transform: scale(1);
     }
 }
-}
-
-.start-main {
-  margin-top: 1.5rem;
 }
 
 .menu-header {

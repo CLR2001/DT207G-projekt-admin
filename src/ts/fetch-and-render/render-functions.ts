@@ -41,25 +41,17 @@ export async function changeWeek(): Promise<void> {
 
 export function createMenu(dishes: Dish[], editable: boolean): void {
   /* ------------------------- Create menu categories ------------------------- */
-  const appetizersContainer = document.querySelector<HTMLDivElement>('.appetizers');
+  const appetizersContainer = document.querySelector<HTMLDivElement>('.appetizers-content');
   appetizersContainer?.replaceChildren();
-  const appetizersH3 = createDomElement('h3', 'Förrätter');
-  appetizersContainer?.append(appetizersH3);
 
-  const mainsContainer = document.querySelector<HTMLDivElement>('.mains');
+  const mainsContainer = document.querySelector<HTMLDivElement>('.mains-content');
   mainsContainer?.replaceChildren();
-  const mainsH3 = createDomElement('h3', 'Huvudrätter');
-  mainsContainer?.append(mainsH3);
 
-  const dessertsContainer = document.querySelector<HTMLDivElement>('.desserts');
+  const dessertsContainer = document.querySelector<HTMLDivElement>('.desserts-content');
   dessertsContainer?.replaceChildren();
-  const dessertsH3 = createDomElement('h3', 'Desserter');
-  dessertsContainer?.append(dessertsH3);
 
-  const drinksContainer = document.querySelector<HTMLDivElement>('.drinks');
+  const drinksContainer = document.querySelector<HTMLDivElement>('.drinks-content');
   drinksContainer?.replaceChildren();
-  const drinksH3 = createDomElement('h3', 'Dryck');
-  drinksContainer?.append(drinksH3);
 
   /* ------------------------ Create and render dishes ------------------------ */
   dishes.forEach(dish => {

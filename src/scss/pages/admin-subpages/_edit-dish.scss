@@ -47,12 +47,38 @@
 
 .dish-container {
   position: relative;
-  margin-bottom: 2.5rem;
+  margin: 0;
   padding: 1.5rem;
   border-radius: 1ch;
   background-color: $color-secondary;
+  &:not(:last-child) {
+    margin-bottom: 2.5rem;
+  }
 }
 
+.appetizers-content:empty::before {
+  content: "Det finns inga sparade förrätter";
+  color: #888;
+  font-style: italic;
+}
+
+.mains-content:empty::before {
+  content: "Det finns inga sparade huvudrätter";
+  color: #888;
+  font-style: italic;
+}
+
+.desserts-content:empty::before {
+  content: "Det finns inga sparade efterrätter";
+  color: #888;
+  font-style: italic;
+}
+
+.drinks-content:empty::before {
+  content: "Det finns inga sparade drycker";
+  color: #888;
+  font-style: italic;
+}
 
 .buttons-container-edit {
   display: flex;

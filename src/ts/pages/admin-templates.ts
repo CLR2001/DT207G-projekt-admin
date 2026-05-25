@@ -12,11 +12,23 @@ template1.innerHTML = `
       <p>Vecka: <span id="current-week"></span></p>
     </div>
     <div class="menu-container">
-      <div class="appetizers"></div>
-      <div class="mains"></div>
-      <div class="desserts"></div>
-      <div class="drinks"></div>
+    <div class="appetizers">
+      <h3>Förrätter</h3>
+      <div class="appetizers-content"></div>
     </div>
+    <div class="mains">
+      <h3>Huvudrätter</h3>
+      <div class="mains-content"></div>
+      </div>
+    <div class="desserts">
+      <h3>Desserter</h3>
+      <div class="desserts-content"></div>
+    </div>
+    <div class="drinks">
+      <h3>Dryck</h3>
+      <div class="drinks-content"></div>
+    </div>
+  </div>
   </section>
 `;
 export const startTemplate = template1;
@@ -84,10 +96,22 @@ template3.innerHTML = `
     </select>
   </div>
   <div class="menu-container">
-    <div class="category-container appetizers"></div>
-    <div class="category-container mains"></div>
-    <div class="category-container desserts"></div>
-    <div class="category-container drinks"></div>
+    <div class="category-container appetizers">
+      <h3>Förrätter</h3>
+      <div class="appetizers-content"></div>
+    </div>
+    <div class="category-container mains">
+      <h3>Huvudrätter</h3>
+      <div class="mains-content"></div>
+      </div>
+    <div class="category-container desserts">
+      <h3>Desserter</h3>
+      <div class="desserts-content"></div>
+    </div>
+    <div class="category-container drinks">
+      <h3>Dryck</h3>
+      <div class="drinks-content"></div>
+    </div>
   </div>
 `;
 export const editDishTemplate = template3;
