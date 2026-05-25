@@ -9,14 +9,21 @@
     text-align: center;
   }
   button {
+    margin-left: 1.5ch;
     padding: 1ch 1.5ch;
     border-radius: 1ch;
     background-color: $color-secondary;
-  }
+    &:hover {
+        transform: scale(1.03);
+    }
+    &:active {
+      transform: scale(1);
+    }
+}
 }
 
 .start-main {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .menu-header {

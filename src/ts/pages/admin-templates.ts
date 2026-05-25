@@ -68,11 +68,20 @@ export const addDishTemplate = template2;
 const template3 = document.createElement('template');
 template3.innerHTML = `
   <h1>Redigera rätt</h1>
+  <label for="category-filter">
+    <select name="category-filter" id="category-filter">
+    <option value="all">Alla</option>
+      <option value="appetizer">Förrätter</option>
+      <option value="main">Huvudrätter</option>
+      <option value="dessert">Desserter</option>
+      <option value="drink">Dryck</option>
+    </select>
+  </label>
   <div class="menu-container">
-    <div class="appetizers"></div>
-    <div class="mains"></div>
-    <div class="desserts"></div>
-    <div class="drinks"></div>
+    <div class="category-container appetizers"></div>
+    <div class="category-container mains"></div>
+    <div class="category-container desserts"></div>
+    <div class="category-container drinks"></div>
   </div>
 `;
 export const editDishTemplate = template3;

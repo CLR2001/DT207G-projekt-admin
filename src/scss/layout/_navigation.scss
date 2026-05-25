@@ -32,6 +32,7 @@ aside:has([data-open="true"]) {
 
 @media (min-width: 992px) {
   .nav-list {
+    padding-right: $standard-padding;
     ul {
       position: static;
       inset: unset;

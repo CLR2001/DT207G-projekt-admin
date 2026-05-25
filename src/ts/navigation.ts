@@ -7,7 +7,10 @@
 import { startTemplate,  addDishTemplate,  editDishTemplate, registerTemplate, editUserTemplate } from "./pages/admin-templates";
 import { addDish } from "./add-dish";
 import { register } from "./register";
-import { renderEditDishData, renderEditUserData, renderStartData } from "./render-data";
+import { renderStartData } from "./fetch-and-render/render-start";
+import { renderEditDishData } from "./fetch-and-render/render-edit-dish";
+import { renderEditUserData } from "./fetch-and-render/render-edit-user";
+
 
 /**
  * @function initNavigation

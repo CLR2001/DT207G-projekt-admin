@@ -9,7 +9,8 @@ import { initNavigation } from "./navigation";
 import { pageTemplate as loginPageTemplate } from "./pages/index-page";
 import { adminUI } from "./pages/admin-ui";
 import { startTemplate } from "./pages/admin-templates";
-import { renderStartData } from "./render-data";
+import { renderStartData } from "./fetch-and-render/render-start";
+
 
 const app = document.querySelector('#app') as HTMLElement;
 

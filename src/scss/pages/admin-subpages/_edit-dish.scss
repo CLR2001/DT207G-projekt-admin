@@ -22,3 +22,33 @@
     }
   }
 }
+
+.edit-dish-form .buttons-container .exit-edit-button {
+  background-color: rgb(233, 70, 70);
+}
+
+#category-filter {
+  margin-top: 1rem;
+}
+
+.dish-container {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  border-radius: 1ch;
+  background-color: $color-secondary;
+}
+
+
+.buttons-container-edit {
+  display: flex;
+  gap: 2ch;
+  .edit-dish-button {
+    color: rgb(208, 208, 253);
+    text-decoration: underline;
+  }
+  .delete-dish-button {
+    color: red;
+    text-decoration: underline;
+  }
+}

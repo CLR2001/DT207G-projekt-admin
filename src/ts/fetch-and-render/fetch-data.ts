@@ -1,6 +1,6 @@
-import type { Dish } from "./interfaces/dish.interface";
-import type { User } from "./interfaces/user.interface";
-import { verifyResponse } from "./global-functions";
+import type { Dish } from "../interfaces/dish.interface";
+import type { User } from "../interfaces/user.interface";
+import { verifyResponse } from "../global-functions";
 
 export async function fetchDishesData(): Promise<Dish[]> {
   try {
@@ -12,6 +12,7 @@ export async function fetchDishesData(): Promise<Dish[]> {
     await verifyResponse(response);
 
     const dishes: Dish[] = await response.json();  
+    dishes.sort((a, b) => a.price - b.price);
     return dishes;
     
   } catch (error: any) {
@@ -30,6 +31,7 @@ export async function fetchCurrentDishesData(): Promise<Dish[]> {
     await verifyResponse(response);
 
     const dishes: Dish[] = await response.json();  
+    dishes.sort((a, b) => a.price - b.price);
     return dishes;
     
   } catch (error: any) {
