@@ -1,8 +1,8 @@
 import { getWeeksFromInput } from "../add-dish";
-import { closeModal, isInputEmpty, verifyResponse } from "../global-functions";
+import { closeModal, createDomElement, isInputEmpty, verifyResponse } from "../global-functions";
 import type { Dish } from "../interfaces/dish.interface";
 import { fetchDishesData } from "./fetch-data";
-import { createMenu } from "./render-functions";
+import { createMenu, populateActiveWeeks } from "./render-functions";
 
 export async function renderEditDishData()  {
   const dishes: Dish[] = await fetchDishesData();
@@ -29,6 +29,27 @@ export async function renderEditDishData()  {
       }
     })
   });
+
+  populateActiveWeeks(dishes);
+
+  const weekFilter = document.querySelector<HTMLSelectElement>('#week-filter');
+  weekFilter?.addEventListener('change', (event) => {
+    if (!event.currentTarget) return;
+    const target = event.currentTarget as HTMLSelectElement;
+    const week = target.value;
+
+    if (week === 'all') {
+      createMenu(dishes, true);
+    } else if (week === 'permanent') {
+      const filteredDishes = dishes.filter(dish => dish.week.length === 0);
+      createMenu(filteredDishes, true);
+    } else {
+      const filteredDishes = dishes.filter(dish => dish.week.includes(Number(week)));
+      createMenu(filteredDishes, true);
+    }
+  });
+
+    
 }
 
 export async function editDish(dish: Dish): Promise<void> {
@@ -86,7 +107,6 @@ export async function editDish(dish: Dish): Promise<void> {
 
       await verifyResponse(response);
 
-      alert('Rätten har uppdaterats');
       closeModal();
       renderEditDishData();
     }
@@ -115,18 +135,17 @@ export async function deleteDish(dish: Dish, container: HTMLElement): Promise<vo
 
       await verifyResponse(response);
 
-      alert('Rätten har raderats');
       container.remove();
     }
   } catch (error: any) {
     if (error.cause) {
-        console.error("Error:", error.cause.error);
-        console.error("Message:", error.cause.message);
-        console.log('--- DETAILS ---');
-        console.table(error.cause.details);
-      }
-      else {
-        console.error(error);
-      }
+      console.error("Error:", error.cause.error);
+      console.error("Message:", error.cause.message);
+      console.log('--- DETAILS ---');
+      console.table(error.cause.details);
+    }
+    else {
+      console.error(error);
+    }
   }
 }

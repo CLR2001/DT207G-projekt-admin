@@ -33,10 +33,13 @@ template1.innerHTML = `
       </select>
     </div>
     <div class="buttons-container">
-      <button class="submit-edit-button">Spara ändringar</button>
+      <button class="submit-edit-button">Spara</button>
       <button class="exit-edit-button">Avbryt</button>
     </div>
     <ul class="message-list"></ul>
+    <button type="button" class="exit-edit-button top-right-exit">
+      <svg class="icon"><use href="#icon-hamburger-close"></use></svg>
+    </button>
   </form>
 `;
 export const editDishModalTemplate = template1;

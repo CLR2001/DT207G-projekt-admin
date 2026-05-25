@@ -50,7 +50,10 @@ export async function fetchUsersData(): Promise<User[]> {
     await verifyResponse(response);
 
     const users: User[] = await response.json();  
-    return users;
+    const usersWithoutAdmin = users.filter(
+      (user) => user._id !== '6a0dd36e6a9ad42c8c29214f'
+    );
+    return usersWithoutAdmin;
     
   } catch (error: any) {
     console.log(error.message);

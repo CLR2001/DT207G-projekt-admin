@@ -24,7 +24,6 @@ export async function changeWeek(): Promise<void> {
 
       await verifyResponse(response);
 
-      alert('Vecka uppdaterad till ' + week);
       renderStartData();
     }
   } catch (error: any) {
@@ -73,7 +72,12 @@ export function createMenu(dishes: Dish[], editable: boolean): void {
 
     const dishDescription = createDomElement('p', dish.description);
 
-    const dishPrice = createDomElement('p', `${dish.price.toString()} :-`);
+    const dishPrice = createDomElement('p');
+    if (editable) {
+      dishPrice.textContent = `Pris: ${dish.price.toString()} :-`
+    } else {
+      dishPrice.textContent = `${dish.price.toString()} :-`;
+    }
 
     dishContainer.append(dishTitle, dishDescription, dishPrice);
 
@@ -113,44 +117,44 @@ function createEditButton(dish: Dish): HTMLButtonElement {
   editButton.classList.add('edit-dish-button');
   
   editButton.addEventListener('click', () => { 
-  /* -------------------------- Create Modal Content -------------------------- */
-  const modal = document.querySelector<HTMLElement>('.modal');
-  modal?.replaceChildren();
-  modal?.appendChild(editDishModalTemplate.content.cloneNode(true));
+    /* -------------------------- Create Modal Content -------------------------- */
+    const modal = document.querySelector<HTMLElement>('.modal');
+    modal?.replaceChildren();
+    modal?.appendChild(editDishModalTemplate.content.cloneNode(true));
 
-  // Fill inputs with current data
-  const nameInput = document.querySelector<HTMLInputElement>('#name');
-  if (nameInput) nameInput.value = dish.name;
+    // Fill inputs with current data
+    const nameInput = document.querySelector<HTMLInputElement>('#name');
+    if (nameInput) nameInput.value = dish.name;
 
-  const descriptionInput = document.querySelector<HTMLInputElement>('#description');
-  if (descriptionInput) descriptionInput.value = dish.description;
+    const descriptionInput = document.querySelector<HTMLInputElement>('#description');
+    if (descriptionInput) descriptionInput.value = dish.description;
 
-  const priceInput = document.querySelector<HTMLInputElement>('#price');
-  if (priceInput) priceInput.value = dish.price.toString();
-  
-  const allWeeksCheckbox = document.querySelector<HTMLInputElement>('#all-weeks');
-  if(allWeeksCheckbox) {
-    if (dish.week.length === 0) {
-      allWeeksCheckbox.checked = true;
-    } else {
-      const weekInput = document.querySelector<HTMLInputElement>('#specific-weeks');
-      if (!weekInput) return;
-      const weekString = dish.week.join(', ');
-      weekInput.value = weekString;
-    }
-  }
-
-  const categoryInput = document.querySelector<HTMLInputElement>('#category');
-  if (categoryInput) categoryInput.value = dish.category;
-  
-  // Creating event listeners for buttons
-  const exitButton = document.querySelector<HTMLButtonElement>('.exit-edit-button');
-  exitButton?.addEventListener('click', (event) => {
-    event.preventDefault();
-    const userConfirm = confirm('Är du säker att du vill avbryta?');
-    if (userConfirm) closeModal();
-    });
+    const priceInput = document.querySelector<HTMLInputElement>('#price');
+    if (priceInput) priceInput.value = dish.price.toString();
     
+    const allWeeksCheckbox = document.querySelector<HTMLInputElement>('#all-weeks');
+    if(allWeeksCheckbox) {
+      if (dish.week.length === 0) {
+        allWeeksCheckbox.checked = true;
+      } else {
+        const weekInput = document.querySelector<HTMLInputElement>('#specific-weeks');
+        if (!weekInput) return;
+        const weekString = dish.week.join(', ');
+        weekInput.value = weekString;
+      }
+    }
+
+    const categoryInput = document.querySelector<HTMLInputElement>('#category');
+    if (categoryInput) categoryInput.value = dish.category;
+    
+    // Creating event listeners for buttons
+    const exitButtons = document.querySelectorAll<HTMLButtonElement>('.exit-edit-button');
+    exitButtons.forEach(exitButton => {
+      exitButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        closeModal();
+      });
+    }); 
     const submitButton = document.querySelector<HTMLButtonElement>('.submit-edit-button');
     submitButton?.addEventListener('click', (event) => {
       event.preventDefault();
@@ -167,8 +171,24 @@ function createEditButton(dish: Dish): HTMLButtonElement {
     const deleteButton = createDomElement('button', 'Radera');
     deleteButton.classList.add('delete-dish-button');
     deleteButton.addEventListener('click', () => {
-    deleteDish(dish, container);
-  });
+      deleteDish(dish, container);
+    });
   
   return deleteButton as HTMLButtonElement;
+}
+
+export function populateActiveWeeks(dishes: Dish[]) {
+  const weekSelect = document.querySelector<HTMLSelectElement>('#week-filter');
+  if (!weekSelect) return;
+
+  const activeWeeks = dishes.flatMap(dish => dish.week);
+
+  const activeWeeksNoDuplicates = [...new Set(activeWeeks)].sort((a, b) => a - b);
+
+  activeWeeksNoDuplicates.forEach(week => {
+    const option = createDomElement('option') as HTMLOptionElement;
+    option.value = week.toString();
+    option.textContent = `${week}`;
+    weekSelect.append(option);
+  });
 }

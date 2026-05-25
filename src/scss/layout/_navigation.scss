@@ -29,10 +29,8 @@ aside:has([data-open="true"]) {
   text-decoration: underline;
 }
 
-
 @media (min-width: 992px) {
   .nav-list {
-    padding-right: $standard-padding;
     ul {
       position: static;
       inset: unset;

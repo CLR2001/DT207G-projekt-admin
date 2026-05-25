@@ -2,9 +2,9 @@ const template1 = document.createElement('template');
 template1.innerHTML = `
  <h1>Start</h1>
   <div class="change-week-container">
-    <label for="week">Välj ny vecka att visa på webbplatsen:</label>
+    <label for="week">Uppdatera aktiv vecka:</label>
     <input type="number" min="1" max="52" name="week" id="week">
-    <button type="button" class="update-week-button">Spara ändring</button>
+    <button type="button" class="update-week-button">Spara</button>
   </div>
   <section class="start-main">
     <div class="menu-header">
@@ -68,15 +68,21 @@ export const addDishTemplate = template2;
 const template3 = document.createElement('template');
 template3.innerHTML = `
   <h1>Redigera rätt</h1>
-  <label for="category-filter">
+  <div class="filter-container">
+    <label for="category-filter">Kategori:</label>
     <select name="category-filter" id="category-filter">
-    <option value="all">Alla</option>
+      <option value="all">Alla</option>
       <option value="appetizer">Förrätter</option>
       <option value="main">Huvudrätter</option>
       <option value="dessert">Desserter</option>
       <option value="drink">Dryck</option>
     </select>
-  </label>
+    <label for="week-filter">Vecka:</label>
+    <select name="week-filter" id="week-filter">
+      <option value="all">Alla</option>
+      <option value="permanent">Permanenta</option>
+    </select>
+  </div>
   <div class="menu-container">
     <div class="category-container appetizers"></div>
     <div class="category-container mains"></div>
@@ -113,6 +119,7 @@ export const registerTemplate = template4;
 
 const template5 = document.createElement('template');
 template5.innerHTML = `
-  <h1>edituser</h1>
+  <h1>Hantera användare</h1>
+  <section class="edit-users-main"></section>
 `;
 export const editUserTemplate = template5;

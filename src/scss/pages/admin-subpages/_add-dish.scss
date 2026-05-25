@@ -3,7 +3,8 @@
 .add-dish-form, .edit-dish-form {
   display: grid;
   gap: 1rem;
-  padding: 2rem 0;
+  width: 100%;
+  padding: 1rem 0;
   div {
     display: flex;
     flex-direction: column;
@@ -15,9 +16,9 @@
   .buttons-container {
     flex-direction: row;
     gap: 2rem;
-    margin: auto;
+    margin-top: 1rem;
     button {
-      padding: 1rem 2rem;
+      padding: 1rem;
       border-radius: 0.5rem;
       background-color: $color-secondary;
       &:hover {
@@ -35,7 +36,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin: 2rem 0;
+  margin: 1rem 0;
   &:has(#all-weeks:checked) {
     margin: 1rem 0;
   }

@@ -7,19 +7,25 @@
   place-items: center;
   padding: $standard-padding;
   background-color: rgba(0, 0, 0, 0.8);
+  overflow-y: auto;
 }
 
 .edit-dish-form {
+  position: relative;
   width: 100%;
   max-width: 800px;
-  padding: 4rem;
+  padding: 3rem $standard-padding;
   border-radius: 2rem;
   background-color: $color-secondary;
   .buttons-container {
-    margin-top: 2rem;
+    justify-content: center;
     button {
+      padding: 1ch 2ch;
       background-color: $color-primary;
     }
+  }
+  input {
+    max-width: 100%;
   }
 }
 
@@ -27,8 +33,16 @@
   background-color: rgb(233, 70, 70);
 }
 
-#category-filter {
+.filter-container {
+  display: flex;
+  flex-direction: column;
   margin-top: 1rem;
+  label {
+    margin-bottom: 0.5ch;
+  }
+  #category-filter {
+    margin-bottom: 1rem;
+  }
 }
 
 .dish-container {
@@ -50,5 +64,22 @@
   .delete-dish-button {
     color: red;
     text-decoration: underline;
+  }
+}
+
+.top-right-exit {
+  position: absolute;
+  display: flex;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 2em;
+}
+
+@media (max-width: 400px) {
+  .modal {
+    padding: 0;
+  }
+  .edit-dish-form {
+    border-radius: 0;
   }
 }

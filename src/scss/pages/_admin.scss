@@ -3,18 +3,21 @@
 .admin-main {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
   height: 100%;
   margin: 0 auto;
   padding: 2rem $standard-padding;
+  h1 {
+    max-width: fit-content;
+  }
 }
 
 .admin-content {
-  padding: 2rem 0;
+  padding-top: 1rem;
 }
 
 @media (min-width: 992px) {
   .admin-main {
     grid-template-columns: auto 1fr;
+    gap: 4rem;
   }
 }

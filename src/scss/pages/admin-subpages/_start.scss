@@ -3,6 +3,7 @@
   display: flex;
   gap: 1ch;
   align-items: center;
+  max-width: $p-width;
   #week {
     width: 4ch;
     padding: 0;
@@ -35,20 +36,20 @@
 
 .menu-container {
   display: flex;
+  width: fit-content;
   flex-direction: column;
   gap: 2rem;
   margin-top: 2rem;
   h3 {
     margin-bottom: 1rem;
     font-size: 1.6em;
-    text-decoration: under;
   }
   
 }
 
 .menu-container > div {
   position: relative;
-  max-width: $p-width;
+  width: 100%;
 }
 
 .dish-container {
@@ -56,4 +57,14 @@
   gap: 0.5ch;
   margin-bottom: 2rem;
   color: $text-muted;
+}
+
+@media (max-width: 991px) {
+  .menu-header {
+    margin: auto;
+  }
+
+  .menu-container {
+    align-items: center;
+  }
 }

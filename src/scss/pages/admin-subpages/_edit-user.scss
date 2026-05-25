@@ -1,1 +1,40 @@
 @use '../../core/' as *;
+
+.edit-users-main {
+  padding: 1rem 0;
+}
+
+.edit-users-main:empty::before {
+  content: "Det finns inga registrerade användare";
+  color: #888;
+  font-style: italic;
+}
+
+.user-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5ch;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  border-radius: 1ch;
+  color: $text-muted;
+  background-color: $color-secondary;
+
+  .delete-user-button {
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+    justify-self: start;
+    align-self: end;
+    color: red;
+    text-decoration: underline;
+  }
+}
+@media (max-width: 450px) {
+  .user-container {
+    grid-template-columns: 1fr;
+    .delete-user-button {
+      grid-column: unset;
+      grid-row: unset;
+    }
+  }
+}
