@@ -44,6 +44,10 @@ a {
   display: none !important;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 button {
   color: $text-primary;
   text-align: center;

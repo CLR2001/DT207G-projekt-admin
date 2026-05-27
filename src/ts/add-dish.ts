@@ -1,5 +1,15 @@
+/**
+ * @file Add dish
+ * @module AddDish
+ * @description Module to store dishes in API database.
+ */
+
 import { createDomElement, isInputEmpty, verifyResponse } from "./global-functions";
 
+/**
+ * @function addDish
+ * @description Reads input data from form and stores values to database after validating inputs are correct type of data.
+ */
 export async function addDish() {
   const nameInput = document.querySelector<HTMLInputElement>('#name');
   const descriptionInput = document.querySelector<HTMLInputElement>('#description');
@@ -79,7 +89,12 @@ export async function addDish() {
     }
 }
 
-function getWeeksFromInput(input: string): number[] {
+/**
+ * @function getWeeksFromInput
+ * @description Splits a string and creates an array of numbers from the split data.
+ * @param input String of numbers separated by comma to be split up into an array.
+ */
+export function getWeeksFromInput(input: string): number[] {
   const allWeeksCheckbox = document.querySelector<HTMLInputElement>('#all-weeks');
   if (allWeeksCheckbox?.checked) {
     return [];

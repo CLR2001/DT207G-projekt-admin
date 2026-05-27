@@ -1,33 +1,70 @@
 @use '../../core/' as *;
+.start-main {
+  margin: 1.5rem 0;
+}
+
 .change-week-container {
   display: flex;
   gap: 1ch;
   align-items: center;
-  margin-top: 0.5rem;
+  max-width: $p-width;
   #week {
     width: 4ch;
     padding: 0;
     text-align: center;
   }
   button {
-    padding: 1ch;
-    border: 1px solid $text-muted;
+    margin-left: 1.5ch;
+    padding: 1ch 1.5ch;
     border-radius: 1ch;
     background-color: $color-secondary;
-  }
+    &:hover {
+        transform: scale(1.03);
+    }
+    &:active {
+      transform: scale(1);
+    }
+}
 }
 
-.start-main {
-  margin-top: 2rem;
+.menu-header {
+  max-width: $p-width;
   h2 {
-    text-align: center;
+    font-size: 1.8em;
   }
 }
 
 .menu-container {
   display: flex;
+  width: fit-content;
   flex-direction: column;
   gap: 2rem;
-  margin-top: 3rem;
-  text-align: center;
+  margin-top: 2rem;
+  h3 {
+    margin-bottom: 1rem;
+    font-size: 1.6em;
+  }
+  
+}
+
+.menu-container > div {
+  position: relative;
+  width: 100%;
+}
+
+.dish-container {
+  display: grid;
+  gap: 0.5ch;
+  margin-bottom: 2rem;
+  color: $text-muted;
+}
+
+@media (max-width: 991px) {
+  .menu-header {
+    margin: auto;
+  }
+
+  .menu-container {
+    align-items: center;
+  }
 }

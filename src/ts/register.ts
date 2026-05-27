@@ -10,7 +10,6 @@ import { createDomElement, isInputEmpty, verifyResponse } from "./global-functio
  * @function register
  * @description Function to register account via API.
  */
-
 export async function register(): Promise<void> {
   const usernameInput = document.querySelector<HTMLInputElement>('#username')?.value;
   const emailInput = document.querySelector<HTMLInputElement>('#e-mail')?.value;

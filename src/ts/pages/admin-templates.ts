@@ -2,24 +2,31 @@ const template1 = document.createElement('template');
 template1.innerHTML = `
  <h1>Start</h1>
   <div class="change-week-container">
-    <label for="week">Välj ny vecka att visa på webbplatsen:</label>
+    <label for="week">Uppdatera aktiv vecka:</label>
     <input type="number" min="1" max="52" name="week" id="week">
-    <button type="button" class="update-week-button">Spara ändring</button>
+    <button type="button" class="update-week-button">Spara</button>
   </div>
   <section class="start-main">
-    <h2>Nuvarande meny (vecka: <span id="current-week"></span>)</h2>
+    <div class="menu-header">
+      <h2>Nuvarande meny</h2>
+      <p>Vecka: <span id="current-week"></span></p>
+    </div>
     <div class="menu-container">
       <div class="appetizers">
         <h3>Förrätter</h3>
+        <div class="appetizers-content"></div>
       </div>
       <div class="mains">
         <h3>Huvudrätter</h3>
-      </div>
+        <div class="mains-content"></div>
+        </div>
       <div class="desserts">
         <h3>Desserter</h3>
+        <div class="desserts-content"></div>
       </div>
       <div class="drinks">
         <h3>Dryck</h3>
+        <div class="drinks-content"></div>
       </div>
     </div>
   </section>
@@ -40,12 +47,12 @@ template2.innerHTML = `
     </div>
     <div>
       <label for="price">Pris:</label>
-      <input type="number" value="0" name="price" id="price" autocomplete="off">
+      <input type="number" name="price" id="price" placeholder="0" autocomplete="off">
     </div>
     <div class="week-input">
       <div class="specific-weeks">
         <label for="specific-weeks">Välj specifika veckor mellan 1 och 52 (separera med kommatecken):</label>
-        <input type="text" name="specific-weeks" id="specific-weeks" placeholder="Ex: 10, 11, 12">
+        <input type="text" name="specific-weeks" id="specific-weeks" placeholder="Ex: 10, 11, 12" autocomplete="off">
       </div>
       <p class="or-text">eller</p>
       <label for="all-weeks">
@@ -72,7 +79,40 @@ export const addDishTemplate = template2;
 
 const template3 = document.createElement('template');
 template3.innerHTML = `
-  <h1>editdish</h1>
+  <h1>Redigera rätter</h1>
+  <div class="filter-container">
+    <label for="category-filter">Kategori:</label>
+    <select name="category-filter" id="category-filter">
+      <option value="all">Alla</option>
+      <option value="appetizer">Förrätter</option>
+      <option value="main">Huvudrätter</option>
+      <option value="dessert">Desserter</option>
+      <option value="drink">Dryck</option>
+    </select>
+    <label for="week-filter">Vecka:</label>
+    <select name="week-filter" id="week-filter">
+      <option value="all">Alla</option>
+      <option value="permanent">Permanenta</option>
+    </select>
+  </div>
+  <div class="menu-container">
+    <div class="category-container appetizers">
+      <h3>Förrätter</h3>
+      <div class="appetizers-content"></div>
+    </div>
+    <div class="category-container mains">
+      <h3>Huvudrätter</h3>
+      <div class="mains-content"></div>
+      </div>
+    <div class="category-container desserts">
+      <h3>Desserter</h3>
+      <div class="desserts-content"></div>
+    </div>
+    <div class="category-container drinks">
+      <h3>Dryck</h3>
+      <div class="drinks-content"></div>
+    </div>
+  </div>
 `;
 export const editDishTemplate = template3;
 
@@ -103,6 +143,7 @@ export const registerTemplate = template4;
 
 const template5 = document.createElement('template');
 template5.innerHTML = `
-  <h1>edituser</h1>
+  <h1>Hantera användare</h1>
+  <section class="edit-users-main"></section>
 `;
 export const editUserTemplate = template5;

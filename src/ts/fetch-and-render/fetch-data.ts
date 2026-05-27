@@ -1,7 +1,17 @@
-import type { Dish } from "./interfaces/dish.interface";
-import type { User } from "./interfaces/user.interface";
-import { verifyResponse } from "./global-functions";
+/**
+ * @file Fetch Data
+ * @module FetchData
+ * @description Contains functions to fetch different types of data from API.
+ */
 
+import type { Dish } from "../interfaces/dish.interface";
+import type { User } from "../interfaces/user.interface";
+import { verifyResponse } from "../global-functions";
+
+/**
+ * @function fetchDishesData
+ * @description Fetches all dishes stored in API. Requires token.
+ */
 export async function fetchDishesData(): Promise<Dish[]> {
   try {
     const response = await fetch('https://projekt.api.clr-server.com/dishes', {
@@ -12,6 +22,7 @@ export async function fetchDishesData(): Promise<Dish[]> {
     await verifyResponse(response);
 
     const dishes: Dish[] = await response.json();  
+    dishes.sort((a, b) => a.price - b.price);
     return dishes;
     
   } catch (error: any) {
@@ -20,6 +31,10 @@ export async function fetchDishesData(): Promise<Dish[]> {
   }
 }
 
+/**
+ * @function fetchCurrentDishesData
+ * @description Fetches dishes that are public and require no authentication from API.
+ */
 export async function fetchCurrentDishesData(): Promise<Dish[]> {
   try {
     const response = await fetch('https://projekt.api.clr-server.com/dishes/current-week', {
@@ -30,6 +45,7 @@ export async function fetchCurrentDishesData(): Promise<Dish[]> {
     await verifyResponse(response);
 
     const dishes: Dish[] = await response.json();  
+    dishes.sort((a, b) => a.price - b.price);
     return dishes;
     
   } catch (error: any) {
@@ -38,6 +54,10 @@ export async function fetchCurrentDishesData(): Promise<Dish[]> {
   }
 }
 
+/**
+ * @function fetchUsersData
+ * @description Fetches all registered users from API. Requires token.
+ */
 export async function fetchUsersData(): Promise<User[]> {
   try {
     const response = await fetch('https://projekt.api.clr-server.com/users', {
@@ -48,7 +68,10 @@ export async function fetchUsersData(): Promise<User[]> {
     await verifyResponse(response);
 
     const users: User[] = await response.json();  
-    return users;
+    const usersWithoutAdmin = users.filter(
+      (user) => user._id !== '6a0dd36e6a9ad42c8c29214f'
+    );
+    return usersWithoutAdmin;
     
   } catch (error: any) {
     console.log(error.message);

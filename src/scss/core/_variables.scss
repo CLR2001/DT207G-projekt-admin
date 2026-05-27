@@ -28,9 +28,9 @@ $text-muted-inverse: var(--text-muted-inverse);
 
 @mixin dark-theme() {
   --color-primary: 	black;
-  --color-secondary: black;
+  --color-secondary: 	#1e2124;
   --color-accent: blue;
-  --color-background: #121212;
+  --color-background: #282b30;
   --color-background-inverse: #F8FAFC;
   --text-primary: #F8F9FA;
   --text-muted: #E9ECEF;
