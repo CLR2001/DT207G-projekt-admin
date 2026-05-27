@@ -19,6 +19,10 @@
   }
 }
 
+body:has([data-open="true"]) {
+  overflow: hidden;
+}
+
 aside:has([data-open="true"]) {
   ul {
     display: flex;
