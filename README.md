@@ -1,20 +1,22 @@
 # ◈ Laboration
-Detta repository innehåller 
+Detta repository innehåller admingränssnittet för projektet i kursen DT207G.
 
 
 ## ✦ Projektbeskrivning
-Denna webbplats 
+Denna webbplats är ett admingränssnitt för restaurangen *Skafferiet*. Här kan registrerade användare använda CRUD-funktionalitet för att hantera deras meny och bestämma vilka rätter osm ska visas upp på deras webbplats.
 
 ## ⚙ Funktioner
-* **1:**  1
-* **2:** 2
-* **3:** 3
+* **Aktiv vecka:** Det går att konfigurera vilken veckomeny som ska visas upp på webbplatsen.
+* **Lägg till rätt:** Ett formulär för att lägga till nya rätter som antingen visas upp för alla veckor eller endast valda veckor finns i gränssnittet.
+* **Redigera rätter:** Ifall en rätt behöver redigeras kan all data ändras via ett formulär.
+* **Registrera användare:** Det går att registrera nya användare för webbplatsen.
+* **Hantera användare:** Funktionalitet för att radera befintliga användare existerar.
 
 ## ⌨ Installation & Setup
 
 1. **Klona projektet:**
    ```bash
-   git clone https://github.com/CLR2001/DT211G-Projekt.git
+   git clone https://github.com/CLR2001/DT207G-projekt.git
    ```
 2. **Installera beroenden:**
    ```bash
@@ -31,7 +33,7 @@ Denna webbplats
    ```
 
 ## ⬀ Länk till webbplats
-[Webbplats](https://.clr-server.com/)
+[Webbplats](https://dt207g-projekt.admin.clr-server.com/)
 
 ## ⬢ Utvecklare
 **Ludvig Rosenqvist** — *Student*
