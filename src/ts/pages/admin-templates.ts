@@ -12,23 +12,23 @@ template1.innerHTML = `
       <p>Vecka: <span id="current-week"></span></p>
     </div>
     <div class="menu-container">
-    <div class="appetizers">
-      <h3>Förrätter</h3>
-      <div class="appetizers-content"></div>
-    </div>
-    <div class="mains">
-      <h3>Huvudrätter</h3>
-      <div class="mains-content"></div>
+      <div class="appetizers">
+        <h3>Förrätter</h3>
+        <div class="appetizers-content"></div>
       </div>
-    <div class="desserts">
-      <h3>Desserter</h3>
-      <div class="desserts-content"></div>
+      <div class="mains">
+        <h3>Huvudrätter</h3>
+        <div class="mains-content"></div>
+        </div>
+      <div class="desserts">
+        <h3>Desserter</h3>
+        <div class="desserts-content"></div>
+      </div>
+      <div class="drinks">
+        <h3>Dryck</h3>
+        <div class="drinks-content"></div>
+      </div>
     </div>
-    <div class="drinks">
-      <h3>Dryck</h3>
-      <div class="drinks-content"></div>
-    </div>
-  </div>
   </section>
 `;
 export const startTemplate = template1;
@@ -79,7 +79,7 @@ export const addDishTemplate = template2;
 
 const template3 = document.createElement('template');
 template3.innerHTML = `
-  <h1>Redigera rätt</h1>
+  <h1>Redigera rätter</h1>
   <div class="filter-container">
     <label for="category-filter">Kategori:</label>
     <select name="category-filter" id="category-filter">

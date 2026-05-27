@@ -1,9 +1,19 @@
+/**
+ * @file Render Edit Dish
+ * @module RenderEditDish
+ * @description Renders data and creates logic for edit-dish subpage.
+ */
+
 import { getWeeksFromInput } from "../add-dish";
-import { closeModal, createDomElement, isInputEmpty, verifyResponse } from "../global-functions";
+import { closeModal, isInputEmpty, verifyResponse } from "../global-functions";
 import type { Dish } from "../interfaces/dish.interface";
 import { fetchDishesData } from "./fetch-data";
 import { createMenu, populateActiveWeeks } from "./render-functions";
 
+/**
+ * @function renderEditDishData
+ * @description Creates HTML Elements and renders said elements to the edit-dish subpage.
+ */
 export async function renderEditDishData()  {
   const dishes: Dish[] = await fetchDishesData();
   createMenu(dishes, true);
@@ -48,10 +58,13 @@ export async function renderEditDishData()  {
       createMenu(filteredDishes, true);
     }
   });
-
-    
 }
 
+/**
+ * @function editDish
+ * @description Reads and validates inputs and saves values to database.
+ * @param dish Dish-object containing ID of dish to edit
+ */
 export async function editDish(dish: Dish): Promise<void> {
   const nameInput = document.querySelector<HTMLInputElement>('#name');
   const descriptionInput = document.querySelector<HTMLInputElement>('#description');
@@ -123,6 +136,12 @@ export async function editDish(dish: Dish): Promise<void> {
   }
 }
 
+/**
+ * @function deleteDish
+ * @description Deletes dish from database and removes DOM-element containing deleted data.
+ * @param dish Dish-object containing ID of dish to delete.
+ * @param container Container to remove from DOM when deleting dish.
+ */
 export async function deleteDish(dish: Dish, container: HTMLElement): Promise<void> {
   try{
     const userConfirm = confirm(`Är du säker på att du vill radera rätten ${dish.name.toLocaleUpperCase()}? Detta går inte att ångra!`);

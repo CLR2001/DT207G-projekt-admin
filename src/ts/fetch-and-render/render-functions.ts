@@ -1,44 +1,20 @@
-import { closeModal, createDomElement, openModal, verifyResponse } from "../global-functions";
+/**
+ * @file Render Functions
+ * @module RenderFunctions
+ * @description Contains functions that creates and renders data to DOM.
+ */
+
+import { closeModal, createDomElement, openModal } from "../global-functions";
 import type { Dish } from "../interfaces/dish.interface";
 import { editDishModalTemplate } from "../pages/modal-templates";
 import { deleteDish, editDish } from "./render-edit-dish";
-import { renderStartData } from "./render-start";
 
-export async function changeWeek(): Promise<void> {
-  try {
-    const week = document.querySelector<HTMLInputElement>('#week')?.valueAsNumber
-
-    const userConfirm = confirm('Detta kommer att ändra vilken veckomeny som visas på er webbplats. Är du säker?');
-
-    if (userConfirm) {
-      const response = await fetch('https://projekt.api.clr-server.com/settings/current-week', {
-        method: 'PUT',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          'week': Number(week)
-        }),
-        credentials: 'include'
-      });
-
-      await verifyResponse(response);
-
-      renderStartData();
-    }
-  } catch (error: any) {
-    if (error.cause) {
-        console.error("Error:", error.cause.error);
-        console.error("Message:", error.cause.message);
-        console.log('--- DETAILS ---');
-        console.table(error.cause.details);
-      }
-      else {
-        console.error(error);
-      }
-  }
-}
-
+/**
+ * @function createMenu
+ * @description Creates HTML Elements and renders said elements to the menu subpage.
+ * @param dishes Array of dishes that contains data to be rendered.
+ * @param editable Whether the menu should contain buttons to edit the dishes. Used for the edit subpage.
+ */
 export function createMenu(dishes: Dish[], editable: boolean): void {
   /* ------------------------- Create menu categories ------------------------- */
   const appetizersContainer = document.querySelector<HTMLDivElement>('.appetizers-content');
@@ -104,6 +80,11 @@ export function createMenu(dishes: Dish[], editable: boolean): void {
   });
 }
 
+/**
+ * @function createEditButton
+ * @description Creates button element with listener to save edits to database.
+ * @param dish Dish-object containg ID of dish to edit.
+ */
 function createEditButton(dish: Dish): HTMLButtonElement {
   const editButton = createDomElement('button', 'Redigera');
   editButton.classList.add('edit-dish-button');
@@ -159,16 +140,26 @@ function createEditButton(dish: Dish): HTMLButtonElement {
   return editButton as HTMLButtonElement;
 }
   
-  function createDeleteButton(container: HTMLElement, dish: Dish): HTMLButtonElement {
-    const deleteButton = createDomElement('button', 'Radera');
-    deleteButton.classList.add('delete-dish-button');
-    deleteButton.addEventListener('click', () => {
-      deleteDish(dish, container);
-    });
+/**
+ * @function createDeleteButton
+ * @description Creates button element with listener to delete dish from database.
+ * @param dish Dish-object containg ID of dish to delete.
+ */
+function createDeleteButton(container: HTMLElement, dish: Dish): HTMLButtonElement {
+  const deleteButton = createDomElement('button', 'Radera');
+  deleteButton.classList.add('delete-dish-button');
+  deleteButton.addEventListener('click', () => {
+    deleteDish(dish, container);
+  });
   
   return deleteButton as HTMLButtonElement;
 }
 
+/**
+ * @function populateActiveWeeks
+ * @description Populates a select element with all weeks that contains at least one dish in database.
+ * @param dishes Array of dishes that contains weeks to populate to week-select element.
+ */
 export function populateActiveWeeks(dishes: Dish[]) {
   const weekSelect = document.querySelector<HTMLSelectElement>('#week-filter');
   if (!weekSelect) return;

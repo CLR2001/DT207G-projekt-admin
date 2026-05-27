@@ -1,7 +1,17 @@
+/**
+ * @file Fetch Data
+ * @module FetchData
+ * @description Contains functions to fetch different types of data from API.
+ */
+
 import type { Dish } from "../interfaces/dish.interface";
 import type { User } from "../interfaces/user.interface";
 import { verifyResponse } from "../global-functions";
 
+/**
+ * @function fetchDishesData
+ * @description Fetches all dishes stored in API. Requires token.
+ */
 export async function fetchDishesData(): Promise<Dish[]> {
   try {
     const response = await fetch('https://projekt.api.clr-server.com/dishes', {
@@ -21,6 +31,10 @@ export async function fetchDishesData(): Promise<Dish[]> {
   }
 }
 
+/**
+ * @function fetchCurrentDishesData
+ * @description Fetches dishes that are public and require no authentication from API.
+ */
 export async function fetchCurrentDishesData(): Promise<Dish[]> {
   try {
     const response = await fetch('https://projekt.api.clr-server.com/dishes/current-week', {
@@ -40,6 +54,10 @@ export async function fetchCurrentDishesData(): Promise<Dish[]> {
   }
 }
 
+/**
+ * @function fetchUsersData
+ * @description Fetches all registered users from API. Requires token.
+ */
 export async function fetchUsersData(): Promise<User[]> {
   try {
     const response = await fetch('https://projekt.api.clr-server.com/users', {

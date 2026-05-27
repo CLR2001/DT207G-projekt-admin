@@ -1,7 +1,17 @@
+/**
+ * @file Render Edit User
+ * @module RenderEditUser
+ * @description Renders data and creates logic for edit-user subpage.
+ */
+
 import { createDomElement, verifyResponse } from "../global-functions";
 import type { User } from "../interfaces/user.interface";
 import { fetchUsersData } from "./fetch-data";
 
+/**
+ * @function renderEditUserData
+ * @description Creates HTML Elements and renders said elements to the edit-user subpage.
+ */
 export async function renderEditUserData()  {
   const users = await fetchUsersData();
   
@@ -31,6 +41,12 @@ export async function renderEditUserData()  {
   })
 }
 
+/**
+ * @function deleteUser
+ * @description Deletes user from database and removes DOM-element containing deleted data.
+ * @param user User-object containing ID of user to delete.
+ * @param container Container to remove from DOM when deleting user.
+ */
 async function deleteUser(user: User, container: HTMLElement): Promise<void> {
   try {
     const userConfirm = confirm(`Är du säker på att du vill radera användaren ${user.username.toLocaleUpperCase()}? Detta går inte att ångra!`);

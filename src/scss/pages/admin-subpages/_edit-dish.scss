@@ -93,6 +93,12 @@
   }
 }
 
+:root[data-theme="light"] {
+  .edit-dish-button {
+    color: rgb(36, 26, 165);
+  }
+}
+
 .top-right-exit {
   position: absolute;
   display: flex;
