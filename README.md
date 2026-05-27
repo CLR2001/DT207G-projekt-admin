@@ -1,4 +1,4 @@
-# ◈ Laboration
+# ◈ Projekt: Admingränssnitt
 Detta repository innehåller admingränssnittet för projektet i kursen DT207G.
 
 
